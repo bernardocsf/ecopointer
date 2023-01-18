@@ -5,10 +5,7 @@ import TheWelcome from '../components/TheWelcome.vue'
 </script>
 
 <template>
-  <main>
+  <main class="background">
     <TheWelcome />
   </main>
 </template>
-<script>
-
-</script>
