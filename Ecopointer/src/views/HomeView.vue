@@ -1,10 +1,10 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+  import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
   <main class="background">
-    <TheWelcome />
+    <RouterLink :to="{name: 'landing'}">A</RouterLink>
   </main>
 </template>
 
