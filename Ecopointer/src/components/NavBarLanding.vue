@@ -52,8 +52,7 @@
 
 
         <div class="modal-footer">
-          
-          <button @click="store.login(username1,password)" type="submit" class="btn btn-primary mx-auto d-blockm" data-bs-dismiss="modal">Iniciar Sessão</button>
+          <button type="submit" class="btn btn-primary mx-auto d-blockm" data-bs-dismiss="modal">Iniciar Sessão</button>
         </div>
       </div>
     </div>
@@ -87,7 +86,7 @@
         </div>
         <div class="modal-footer">
           <button
-            @click="store.addUser( username,  name,   email, cidade,  password),store.updateLocalStorage()"
+            @click="store.addUser(store.username = username, store.name = name, store.email = email, store.cidade = cidade, store.password = password)"
             type="submit" class="btn btn-primary mx-auto d-blockm" data-bs-dismiss="modal">Criar
             conta</button>
         </div>
@@ -95,6 +94,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 import { toHandlers } from 'vue';
