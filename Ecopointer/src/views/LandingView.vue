@@ -32,14 +32,17 @@
             </b-container>
         </b-container>
     </div>
+    <Footer/>
 </template>
 
 <script>
 import NavbarLanding from '../components/NavBarLanding.vue'
+import Footer from '../components/Footer.vue';
 
 export default {
     components: {
         NavbarLanding,
+        Footer
     },
 }
 </script>

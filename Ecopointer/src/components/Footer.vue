@@ -2,7 +2,7 @@
     <nav class="navbar navbar-light" style="background-color: #F7F4F3;"></nav>
 
 <main class="background" style="background-color: #F7F4F3;">
-  <ul class="nav nav-pills mb-3 navbar bottom navbar-expand-lg " id="pills-tab" role="tablist">
+  <ul class="nav nav-pills mb-3 navbar navbar-expand-lg " id="pills-tab" role="tablist">
     <li class="nav-item">
       <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="/" role="tab" aria-controls="pills-home"
         aria-selected="false" style="color: #134C67"><img src="../assets/glogogog 1.png"></a>
