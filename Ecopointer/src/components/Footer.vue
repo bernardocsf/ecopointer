@@ -17,7 +17,7 @@
     <ul class="nav nav-pills mb-3 navbar fixed-top navbar-expand-lg " id="pills-tab" role="tablist">
         <li class="nav-item">
         <a class="nav-link" id="pills-profile-tab" data-toggle="pill" role="tab"
-            aria-controls="pills-profile" aria-selected="false" style="color: #134C67">Links</a>
+            aria-controls="pills-profile" aria-selected="false" style="color: #134C67; font-family: 'Keedy Sans';">Links</a>
         </li>
         <li class="nav-item">
         <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="/map" role="tab"

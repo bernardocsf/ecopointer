@@ -1,33 +1,33 @@
 <template>
 
-  <nav class="navbar navbar-light" style="background-color: #F7F4F3;"></nav>
+  <nav class="navbar navbar-light" style="background-color: #59985F;"></nav>
 
-  <main class="background" style="background-color: #F7F4F3;">
+  <main class="background" style="background-color: #59985F;">
     <ul class="nav nav-pills mb-3 navbar fixed-top navbar-expand-lg " id="pills-tab" role="tablist">
       <li class="nav-item">
         <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="/" role="tab" aria-controls="pills-home"
-          aria-selected="false" style="color: #134C67">Ecopointer</a>
+          aria-selected="false" style="color: #F7F4F3; font-family:'Keedy Sans';">Ecopointer</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="/map" role="tab"
-          aria-controls="pills-profile" aria-selected="false" style="color: #134C67">Mapa</a>
+          aria-controls="pills-profile" aria-selected="false" style="color: #F7F4F3">Mapa</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="/eventos" role="tab"
-          aria-controls="pills-contact" aria-selected="false" style="color: #134C67">Evento</a>
+        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#" role="tab"
+          aria-controls="pills-contact" aria-selected="false" style="color: #F7F4F3">Evento</a>
       </li>
       <li class="nav-item me-auto">
-        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="/ajuda" role="tab"
-          aria-controls="pills-contact" aria-selected="false" style="color: #134C67">Ajuda</a>
+        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#" role="tab"
+          aria-controls="pills-contact" aria-selected="false" style="color: #F7F4F3">Ajuda</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="" role="tab" aria-controls="pills-contact"
           aria-selected="false" data-bs-toggle="modal" data-bs-target="#myModalRegisto"
-          style="color: #134C67">Registo</a>
+          style="color: #F7F4F3; font-family:'Keedy Sans'">Sign Up</a>
       </li>
       <li class="nav-item ">
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModalLogin"
-          style="background-color: #134C67">Login</button>
+          style="background-color: #F7F4F3; color: #59985F; font-family:'Keedy Sans';">LogIn</button>
       </li>
     </ul>
   </main>
@@ -119,27 +119,6 @@ export default {
     this.store.updateLocalStorage();
   },
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </script>
 
 

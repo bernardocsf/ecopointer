@@ -1,7 +1,7 @@
 <template>
-  <nav class="navbar navbar-light" style="background-color: #e3f2fd;"></nav>  
+  <nav class="navbar navbar-light" style="background-color: #F7F4F3;"></nav>  
       
-  <main class="background" style="background-color: #e3f2fd;">
+  <main class="background" style="background-color: #F7F4F3;">
     <ul class="nav nav-pills mb-3 navbar fixed-top navbar-expand-lg " id="pills-tab" role="tablist" >
       <li class="nav-item">
         <a class="nav-link  " id="pills-home-tab" data-toggle="pill" href="/" role="tab" aria-controls="pills-home" aria-selected="false" style="color: #134C67">Ecopointer</a>
@@ -16,10 +16,10 @@
         <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="/ajuda" role="tab" aria-controls="pills-contact" aria-selected="false" style="color: #134C67">Ajuda</a>
       </li>
       <li class="nav-item " >
-        <a class="nav-link " id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false" style="color: #134C67">Registar</a>
+        <a class="nav-link " id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false" style="color: #134C67; font-family:'Keedy Sans';">Registar</a>
       </li>
       <li class="nav-item " >
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" style="background-color: #134C67">Login</button>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal" style="background-color: #134C67; font-family:'Keedy Sans';">Login</button>
       </li>
     </ul>
   </main>

@@ -1,6 +1,6 @@
 <script setup>
 import Navbar from '../components/NavBarLanding.vue'
-import FooterUwU from '../components/Footer.vue'
+import TheFooter from '../components/Footer.vue'
 </script>
 
 <template>
@@ -22,7 +22,7 @@ import FooterUwU from '../components/Footer.vue'
         
     </div>
     <div>
-            <FooterUwU/>
+            <TheFooter/>
     </div>
 
 </template>
