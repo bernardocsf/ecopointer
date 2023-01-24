@@ -41,17 +41,19 @@
         </div>
         <div class="modal-body">
           <div class="img-container"><img src="../assets/fotologin.png" width="300" height="200" alt=""></div>
-          <div class="text-container"><input type="text" placeholder="username" class="form-control" id="usernameL"
+          <div class="text-container"><input v-model="username1" type="text" placeholder="username" class="form-control" id="usernameL"
               aria-describedby="usern">
             <br>
-            <input type="password" placeholder="password" id="inputPassword5" class="form-control"
+            <input v-model="password" type="password" placeholder="password" id="inputPassword5" class="form-control"
               aria-describedby="passwordHelpBlock">
           </div>
+          <h1>{{ username1}}</h1>
         </div>
 
 
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary mx-auto d-blockm" data-bs-dismiss="modal">Iniciar Sessão</button>
+          
+          <button @click="store.login(username1,password)" type="submit" class="btn btn-primary mx-auto d-blockm" data-bs-dismiss="modal">Iniciar Sessão</button>
         </div>
       </div>
     </div>
@@ -80,12 +82,12 @@
             aria-describedby="passwordR">
           <input type="password" placeholder="confpassword" id="confpasswordR" class="form-control"
             aria-describedby="confpasswordR">
-          <h1>{{ store }}</h1>
+          
 
         </div>
         <div class="modal-footer">
           <button
-            @click="store.addUser(store.username = username, store.name = name, store.email = email, store.cidade = cidade, store.password = password)"
+            @click="store.addUser( username,  name,   email, cidade,  password),store.updateLocalStorage()"
             type="submit" class="btn btn-primary mx-auto d-blockm" data-bs-dismiss="modal">Criar
             conta</button>
         </div>
@@ -105,12 +107,16 @@ export default {
   setup() {
     const store = userStore();
     // storeToRefs lets todoList keep reactivity:
-    const { users } = storeToRefs(store);
+    
 
     return {
-      users,
+
       store
+      
     };
+  },
+  beforeUpdate () {
+    this.store.updateLocalStorage();
   },
 };
 
