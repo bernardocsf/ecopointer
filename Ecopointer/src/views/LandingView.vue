@@ -32,7 +32,7 @@
             </b-container>
         </b-container>
     </div>
-    <Footer/>
+    <Footer />
 </template>
 
 <script>
