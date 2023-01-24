@@ -1,8 +1,8 @@
 <template>
 
-  <nav class="navbar navbar-light" style="background-color: #e3f2fd;"></nav>
+  <nav class="navbar navbar-light" style="background-color: #F7F4F3;"></nav>
 
-  <main class="background" style="background-color: #e3f2fd;">
+  <main class="background" style="background-color: #F7F4F3;">
     <ul class="nav nav-pills mb-3 navbar fixed-top navbar-expand-lg " id="pills-tab" role="tablist">
       <li class="nav-item">
         <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="/" role="tab" aria-controls="pills-home"
