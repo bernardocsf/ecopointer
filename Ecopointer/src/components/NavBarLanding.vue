@@ -1,5 +1,8 @@
 <template>
-  <main class="background" style="background-color: #e3f2fd;">
+
+  <nav class="navbar navbar-light" style="background-color: #F7F4F3;"></nav>
+
+  <main class="background" style="background-color: #F7F4F3;">
     <ul class="nav nav-pills mb-3 navbar fixed-top navbar-expand-lg " id="pills-tab" role="tablist">
       <li class="nav-item">
         <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="/" role="tab" aria-controls="pills-home"
@@ -49,8 +52,7 @@
 
 
         <div class="modal-footer">
-          
-          <button @click="store.login(username1,password)" type="submit" class="btn btn-primary mx-auto d-blockm" data-bs-dismiss="modal">Iniciar SessÃ£o</button>
+          <button type="submit" class="btn btn-primary mx-auto d-blockm" data-bs-dismiss="modal">Iniciar Sessão</button>
         </div>
       </div>
     </div>
@@ -84,7 +86,7 @@
         </div>
         <div class="modal-footer">
           <button
-            @click="store.addUser( username,  name,   email, cidade,  password)"
+            @click="store.addUser(store.username = username, store.name = name, store.email = email, store.cidade = cidade, store.password = password)"
             type="submit" class="btn btn-primary mx-auto d-blockm" data-bs-dismiss="modal">Criar
             conta</button>
         </div>
@@ -105,12 +107,16 @@ export default {
   setup() {
     const store = userStore();
     // storeToRefs lets todoList keep reactivity:
-    const { users } = storeToRefs(store);
+    
 
     return {
-      users,
+
       store
+      
     };
+  },
+  beforeUpdate () {
+    this.store.updateLocalStorage();
   },
 };
 
