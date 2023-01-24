@@ -1,77 +1,33 @@
-<template>
-    <div>
-    <b-button v-b-modal.modal-prevent-closing>LogIn</b-button>
-
-    <b-modal
-      id="modal-prevent-closing"
-      ref="modal"
-      title="LogIn"
-      @show="resetModal"
-      @hidden="resetModal"
-      @ok="handleOk"
-    >
-      <form ref="form" @submit.stop.prevent="handleSubmit">
-        <b-form-group
-          label="Name"
-          label-for="name-input"
-          invalid-feedback="Name is required"
-          :state="nameState"
-        >
-          <b-form-input
-            id="name-input"
-            v-model="name"
-            :state="nameState"
-            required
-          ></b-form-input>
-        </b-form-group>
-      </form>
-    </b-modal>
-  </div>
-</template>
-
-<script>
-    export default {
-    data() {
-      return {
-        name: '',
-        nameState: null,
-        submittedNames: []
-      }
-    },
-    methods: {
-      checkFormValidity() {
-        const valid = this.$refs.form.checkValidity()
-        this.nameState = valid
-        return valid
-      },
-      resetModal() {
-        this.name = ''
-        this.nameState = null
-      },
-      handleOk(bvModalEvent) {
-        // Prevent modal from closing
-        bvModalEvent.preventDefault()
-        // Trigger submit handler
-        this.handleSubmit()
-      },
-      handleSubmit() {
-        // Exit when the form isn't valid
-        if (!this.checkFormValidity()) {
-          return
-        }
-        // Push the name to submitted names
-        this.submittedNames.push(this.name)
-        // Hide the modal manually
-        this.$nextTick(() => {
-          this.$bvModal.hide('modal-prevent-closing')
-        })
-      }
-    }
-  }
+<script setup>
+import Navbar from '../components/NavBarLanding.vue'
 </script>
 
-<style lang="scss" scoped>
+<template>
+    <div class="backGround">
+        <div>
+            <Navbar/>
+        </div>
+        <div >
+            <h1>Uma nova forma de recicleeear...</h1>
+            <p>Com a EcoPointer, reciclar tornou-se muito mais interativo! Compartilha a tua contribuição para melhorar o nosso planeta, enquanto podes ganhar prémios e recompensas pelo caminho!</p>
+            <img src="../assets/Asset 5.1.png" alt="EcoPointer" width="500" height="500">
+            <h1>
+                Encontra ecopontos no mapa!
+            </h1>
+            <p>Disponibilizamos no nosso mapa os ecopontos mais próximos de ti. No entanto, não são os únicos. A tua contribuição é fundamental para a atualização do mapa.</p>
+            <h1>Participa em eventos!</h1>
+            <p>A reciclagem não é a única maneira de ajudar o planeta. Podes conferir uma grande variedade de eventos ecológicos e ambientais e sentir-te acolhido pela nossa comunidade!</p>
+        </div>
+    </div>
 
+</template>
 
-
+<style scoped>
+    .backGround {
+        background-color: #43804B;
+        width: 100%;
+    }
+    h1 {
+        color: red;
+    }
 </style>
