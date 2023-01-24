@@ -1,7 +1,5 @@
 <template>
 
-  <nav class="navbar navbar-light" style="background-color: #F7F4F3;"></nav>
-
   <main class="background" style="background-color: #F7F4F3;">
     <ul class="nav nav-pills mb-3 navbar fixed-top navbar-expand-lg " id="pills-tab" role="tablist">
       <li class="nav-item">
@@ -81,8 +79,6 @@
             aria-describedby="passwordR">
           <input type="password" placeholder="confpassword" id="confpasswordR" class="form-control"
             aria-describedby="confpasswordR">
-          
-
         </div>
         <div class="modal-footer">
           <button
@@ -141,7 +137,6 @@ export default {
 
 
 </script>
-
 
 
 
