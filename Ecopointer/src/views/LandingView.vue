@@ -56,7 +56,7 @@ export default {
 .landingPage {
     background-image: url('src/assets/LandingPageBG.png');
     background-size: cover;
-    height: 2838px;
+    height: 440vh;
     width: 100%;
 }
 
