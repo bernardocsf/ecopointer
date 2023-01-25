@@ -31,27 +31,23 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="d-flex">
-            <div>
-              <div class="img-container">
-                <img src="../assets/fotologin.png" width="300" height="450" alt="">
-              </div>
+            <div class="img-container">
+              <img src="../assets/fotologin.png" width="280" height="400">
             </div>
-            <div id="fields">
+            <div>
               <div class="modal-header">
                 <h4 class="modal-title">Bem-vindo(a) de volta</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
               </div>
               <div class="modal-body">
-                <div class="text-container"><input v-model="username1" type="text" placeholder="username"
-                    class="form-control" id="usernameL" aria-describedby="usern">
+                <div class="text-container">
+                  <input v-model="username1" type="text" class="form-control" placeholder="username">
                   <br>
-                  <input v-model="password" type="password" placeholder="password" id="inputPassword5"
-                    class="form-control" aria-describedby="passwordHelpBlock">
+                  <input v-model="password" type="password" class="form-control" placeholder="password">
+                  <br>
+                  <button @click="store.login(username1, password)" type="submit" class="btn btn-primary"
+                    data-bs-dismiss="modal">Iniciar Sessão</button>
                 </div>
-              </div>
-              <div class="modal-footer">
-                <button @click="store.login(username1, password)" type="submit" class="btn btn-primary mx-auto d-blockm"
-                  data-bs-dismiss="modal">Iniciar Sessão</button>
               </div>
             </div>
           </div>
@@ -62,32 +58,36 @@
     <div class="modal fade" id="myModalRegisto">
       <div class="modal-dialog">
         <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Bem-vindo(a)</h4>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div>
+          <div class="d-flex">
+            <div class="img-container">
+              <img src="../assets/fotologin.png" width="280" height="400">
+            </div>
+            <div>
+              <div class="modal-header">
+                <h4 class="modal-title">Bem-vindo(a)</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
 
-          <div class="modal-body">
-            <img src="../assets/fotologin.png" width="300" height="200" alt="">
-            <input type="text" placeholder="username" class="form-control" id="usernameR" aria-describedby="usernameR"
-              v-model="username">
-            <input v-model="name" type="text" placeholder="name" class="form-control" id="nameR"
-              aria-describedby="nameR">
-            <br>
-            <input v-model="email" type="text" placeholder="email" id="emailR" class="form-control"
-              aria-describedby="emailR">
-            <input v-model="cidade" type="text" placeholder="cidade" id="cidadeR" class="form-control"
-              aria-describedby="cidadeR">
-            <br>
-            <input v-model="password" type="password" placeholder="password" id="passwordR" class="form-control"
-              aria-describedby="passwordR">
-            <input type="password" placeholder="confpassword" id="confpasswordR" class="form-control"
-              aria-describedby="confpasswordR">
-          </div>
-          <div class="modal-footer">
-            <button @click="this.store.addUser(username, name, email, cidade, password)" type="submit"
-              class="btn btn-primary mx-auto d-blockm" data-bs-dismiss="modal">Criar
-              conta</button>
+              <div class="modal-body">
+                <div class="text-container">
+                  <div class="d-flex">
+                    <div class="p-2">
+                      <input v-model="username" type="text" class="form-control" placeholder="username"><br>
+                      <input v-model="email" type="text" id="emailR" class="form-control" placeholder="email"><br>
+                      <input v-model="password" type="password" class="form-control" placeholder="password"><br>
+                    </div>
+                    <div class="p-2">
+                      <input v-model="name" type="text" class="form-control" placeholder="name"><br>
+                      <input v-model="cidade" type="text" id="cidadeR" class="form-control" placeholder="cidade"><br>
+                      <input v-model="passwordConfir" type="password" class="form-control" placeholder="confpassword"><br>
+                    </div>
+                  </div>
+                </div>
+                <button @click="this.store.addUser(username, name, email, cidade, password, passwordConfir)" type="submit"
+                class="btn btn-primary mx-auto d-blockm" data-bs-dismiss="modal">Criar
+                conta</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -158,20 +158,23 @@ export default {
   color: #1D202C
 }
 
-
-.modal-content {
-  width: 50vw;
-  width: 50%;
+#myModalLogin {
+  --bs-modal-width: 800px;
+  --bs-modal-width: 800px;
 }
+
+#myModalRegisto {
+  --bs-modal-width: 850px;
+}
+
+.modal-header {
+  padding-top: 5em;
+  padding: 2em;
+}
+
 .modal-title {
   font-family: 'Keedy Sans', bold;
   font-size: 30px;
-}
-
-#fields {
-  padding: 2em;
-  padding-top: 5em;
-  width: 100%;
 }
 </style>
 

@@ -32,28 +32,21 @@ export const userStore = defineStore('userStore', {
         name: name,
         email: email,
         cidade: cidade,
-        password: password
+        password: password,
+        passwordConfir: passwordConfir
       });
       this.updateLocalStorage()
     },
     login(username, password) {
-
       console.log(username, password);
       if (this.users.find((user) => user.username == username)) {
         if (this.users.find((user) => user.password == password)) {
-  
           console.log("Login efetuado com sucesso");
           router.push('/map') 
         }
       }
     },
-
-
   },
-
-
-
-
 })
 
 
