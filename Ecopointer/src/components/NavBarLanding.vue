@@ -45,8 +45,8 @@
                   <br>
                   <input v-model="password" type="password" class="form-control" placeholder="password">
                   <br>
-                  <input v-model="password" type="password" placeholder="password" id="inputPassword5"
-                    class="form-control" aria-describedby="passwordHelpBlock">
+                  <button @click="store.login(username1, password)" type="submit" class="btn btn-primary"
+                    data-bs-dismiss="modal">Iniciar Sessão</button>
                 </div>
               </div>
             </div>
@@ -177,7 +177,3 @@ export default {
   font-size: 30px;
 }
 </style>
-
-
-
-

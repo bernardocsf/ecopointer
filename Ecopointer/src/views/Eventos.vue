@@ -55,7 +55,7 @@
 
 <script>
 import { toHandlers } from 'vue';
-import { userStore } from '../stores/Userstore';
+import { eventos } from '../stores/eventStore';
 import Navbar from '../components/NavBar.vue'
 
 import { storeToRefs } from "pinia";
@@ -69,7 +69,7 @@ export default {
         Navbar,
     },
     setup() {
-        const store = userStore();
+        const store = eventos();
         // storeToRefs lets todoList keep reactivity
         return {
             store
