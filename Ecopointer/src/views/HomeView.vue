@@ -77,20 +77,7 @@
           </b-row>
         </b-container>
         <b-container>
-          <GoogleMap api-key="AIzaSyAYi2BJ0UcEc3zgu2s6g9UFV-6JHuSkyxE" style="width: 100%; height: 500px"
-            mapTypeId="hybrid" :center="center" :zoom="18">
-            <Marker :options="currentPosMarkerOptions" />
-            <Marker v-for="ecoponto in ecopontos" @click="focarEcoponto(ecoponto.id)" :key="ecoponto.id" :options="{
-              position: {
-                lat: ecoponto.coordenadas.lat,
-                lng: ecoponto.coordenadas.lng,
-              },
-              icon: {
-                url: '/src/assets/imgs/iconeEcoponto.png',
-                scaledSize: { width: 29, height: 40 },
-              },
-            }" />
-          </GoogleMap>
+          <mapa/>
         </b-container>
       </div>
       <div>
@@ -121,7 +108,7 @@
         <div id="tableClass">
           <table class="table">
             <tbody>
-              <tr id="rt" v-for="user in store1.getUsers" :key="user.id">
+              <tr id="rt" v-for="user in store2.getUsers" >
                 <td id="tdnumClassificacao">{{ user.id + 1 }}o</td>
                 <td id="tdnameClassificacao">{{ user.name }}</td>
                 <td id="tdxpsClassificacao">{{ user.name }}</td>
@@ -140,6 +127,8 @@ import { toHandlers } from 'vue';
 import { challenges } from '../stores/challengeStore';
 import { eventos } from '../stores/eventStore';
 import { GoogleMap, Marker } from "vue3-google-map";
+import {userStore} from "../stores/Userstore"
+import Mapa from "../components/MapaHome.vue"
 
 import Navbar from '../components/NavBar.vue'
 
@@ -151,17 +140,20 @@ export default {
   },
   components: {
     Navbar,
+    Mapa
   },
   setup() {
     const store = challenges();
     
     const store1= eventos();
+    const store2= userStore();
     store1.updateLocalStorage()
     // storeToRefs lets todoList keep reactivity
 
     return {
       store,
-      store1
+      store1,
+      store2
       
     };
 
