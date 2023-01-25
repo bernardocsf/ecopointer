@@ -83,7 +83,7 @@
                     </div>
                   </div>
                 </div>
-                <button @click="this.store.addUser(username, name, email, cidade, password, passwordConfir)" type="submit"
+                <button @click="store.addUser(username, name, email, cidade, password)" type="submit"
                 class="btn btn-primary mx-auto d-blockm" data-bs-dismiss="modal">Criar
                 conta</button>
               </div>

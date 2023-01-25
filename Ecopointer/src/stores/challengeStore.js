@@ -1,21 +1,17 @@
-
 import { defineStore } from 'pinia'
 
 export const challenges = defineStore('challengeStore', {
   state: () => ({
     desafios:
-    [{id:0, nome:"Concluir 3 streaks", porcentagem: "60%", xps: "+100XP"},
-    {id:1, nome:"Registar 3 ecoponto", porcentagem: "20%", xps: "+100XP"},
-    {id:2, nome:"Posts em 20 ecopontos diferentes", porcentagem: "40%", xps: "+100XP"}
-
+    [
+    {id:0, nome:"Concluir 3 streaks", percentagem: 50, xps: "+100XP"},
+    {id:1, nome:"Registar 3 ecoponto", percentagem: 80, xps: "+200XP"},
+    {id:2, nome:"Posts em 20 ecopontos diferentes", percentagem: 50, xps: "+300XP"},
+    {id:2, nome:"Participação em 5 eventos", percentagem: 30, xps: "+15XP"},
     ]
-    
   }),
   getters: {
-    getDesafios: (state) => {
-      return state.desafios;
-    
-  },
+    getDesafios: (state) => { return state.desafios},
 },
 
   actions: {
