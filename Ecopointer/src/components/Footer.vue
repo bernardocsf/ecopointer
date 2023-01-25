@@ -1,36 +1,56 @@
 <template>
-    <div>
+    <footer>
         <b-container>
-            <b-row cols="2">
-                <b-col><img src="../assets/glogogog 1.png"></b-col>
-                <b-col>
-                    <p id="footerText">Esta aplicação é um projeto desenvolvido com o objetivo de aumentar a aderência a
-                        reciclagem e torna-la mais divertida. Queremos que se divirtam tanto como nós a reciclar e
+            <div id="footer" class="d-flex">
+                <div class="p-5">
+                    <img src="../assets/glogogog 1.png">
+                    <p id="footerText">Esta aplicação é um projeto desenvolvido com o objetivo de aumentar a
+                        aderência a
+                        reciclagem e torna-la mais divertida. Queremos que se divirtam tanto como nós a reciclar
+                        e
                         ajudar a
                         melhorar o nosso planeta.
                     </p>
-                </b-col>
-                <b-col>
-                    <h2>Links</h2>
-                </b-col>
-                <b-col>
+                </div>
+                <div id="footerText" class="p-5">
+                    <b-col>
+                        <h2 style="font-family: keedy Sans; font-size: 30px">Links</h2>
+                    </b-col>
+                    <b-col>
+                        <b-list-group>
+                            <b-list-group-item button>Home</b-list-group-item><br>
+                            <b-list-group-item button>Mapa</b-list-group-item><br>
+                            <b-list-group-item button>Eventos</b-list-group-item><br>
+                            <b-list-group-item button>Ajuda</b-list-group-item>
+                        </b-list-group>
+                    </b-col>
+                </div>
+                <div class="p-5">
                     <b-list-group>
-                        <b-list-group-item button>Home</b-list-group-item><br>
-                        <b-list-group-item button>Mapa</b-list-group-item><br>
-                        <b-list-group-item button>Eventos</b-list-group-item><br>
-                        <b-list-group-item button>Ajuda</b-list-group-item>
+                        <b-list-group-item button><img src="../assets/faceIcon.svg"></b-list-group-item><br>
+                        <b-list-group-item button><img src="../assets/instaIcon.svg"></b-list-group-item><br>
+                        <b-list-group-item button><img src="../assets/emailIcon.svg"></b-list-group-item><br>
                     </b-list-group>
-                </b-col>
-            </b-row>
+                </div>
+            </div>
         </b-container>
-    </div>
+    </footer>
 </template>
 
 <style scoped>
+
+footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
 #footer {
-    width: 100%;
-    height: 200px;
-    bottom: auto;
+    position: relative;
+    display: block;
+    margin: auto;
+    width: 60%;
 }
 
 #footerLogo {

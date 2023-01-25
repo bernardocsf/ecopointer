@@ -37,6 +37,7 @@
                 </b-row>
             </b-container>
         </b-container>
+    <Footer />
     </div>
 </template>
 
@@ -56,7 +57,7 @@ export default {
 .landingPage {
     background-image: url('src/assets/LandingPageBG.png');
     background-size: cover;
-    height: 440vh;
+    height: 410vh;
     width: 100%;
 }
 
