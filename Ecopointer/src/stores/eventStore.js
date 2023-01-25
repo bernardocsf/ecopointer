@@ -12,7 +12,7 @@ export const Eventstore = defineStore('counter', () => {
 
 
 
-  },
+  
 
 
 
