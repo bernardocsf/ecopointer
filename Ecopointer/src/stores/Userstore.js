@@ -43,7 +43,7 @@ export const userStore = defineStore('userStore', {
         if (this.users.find((user) => user.password == password)) {
   
           console.log("Login efetuado com sucesso");
-          router.push('/map') 
+          router.push('/home') 
         }
       }
     },
