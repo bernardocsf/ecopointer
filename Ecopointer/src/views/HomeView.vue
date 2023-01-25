@@ -154,7 +154,7 @@ export default {
   },
   setup() {
     const store = challenges();
-    const store1 = userStore();
+    
     const store1= eventos();
     store1.updateLocalStorage()
     // storeToRefs lets todoList keep reactivity
@@ -162,8 +162,7 @@ export default {
     return {
       store,
       store1
-      store,
-      store1
+      
     };
 
   },
