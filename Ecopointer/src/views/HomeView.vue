@@ -45,51 +45,25 @@
         </b-container>
       </div>
       <b-container>
-        <div id="cardGroups" class="d-flex">
-          <div class="p-2">
-            <div class="card">
-              <img class="card-img-top" src="../assets/fotocard.png" alt="Card image cap">
+        <div  id="cardGroups" class="d-flex">
+          <div @load="store1.updateLocalStorage()" v-for="evento in store1.eventos " class="p-2">
+            <div  class="card">
+              <img class="card-img-top" :src="evento.imagem" alt="Card image cap">
               <div class="card-body">
-                <h5 class="card-title">Recolha de lixo no Porto</h5>
-                <p class="card-text">14/12/2022</p>
+                <h5 class="card-title">{{ evento.nome }}</h5>
+                
+                <p class="card-text">{{ evento.data }}</p>
                 <p class="card-text">36</p><i class="bi bi-heart"></i>
+
+
                 <a href="#" class="btn btn-primary">Go somewhere</a>
               </div>
             </div>
           </div>
-          <div class="p-2">
-            <div class="card">
-              <img class="card-img-top" src="../assets/fotocard.png" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">Recolher lixo na praia</h5>
-                <p class="card-text">14/12/2022</p>
-                <p class="card-text">24</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-          <div class="p-2">
-            <div class="card">
-              <img class="card-img-top" src="../assets/fotocard.png" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">Plantação de árvores</h5>
-                <p class="card-text">14/12/2022</p>
-                <p class="card-text">16</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-          <div class="p-2">
-            <div class="card">
-              <img class="card-img-top" src="../assets/fotocard.png" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">Plantação de árvores</h5>
-                <p class="card-text">14/12/2022</p>
-                <p class="card-text">16</p><i class="bi bi-heart"></i>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
+          
+          
+          
+            
         </div>
       </b-container>
       <div id="tituloDiv">
@@ -102,14 +76,21 @@
             </b-col>
           </b-row>
         </b-container>
-      </div>
-      <div id="mapaDiv">
         <b-container>
-          <b-row>
-            <b-col>
-              <MapaHome />
-            </b-col>
-          </b-row>
+          <GoogleMap api-key="AIzaSyAYi2BJ0UcEc3zgu2s6g9UFV-6JHuSkyxE" style="width: 100%; height: 500px"
+            mapTypeId="hybrid" :center="center" :zoom="18">
+            <Marker :options="currentPosMarkerOptions" />
+            <Marker v-for="ecoponto in ecopontos" @click="focarEcoponto(ecoponto.id)" :key="ecoponto.id" :options="{
+              position: {
+                lat: ecoponto.coordenadas.lat,
+                lng: ecoponto.coordenadas.lng,
+              },
+              icon: {
+                url: '/src/assets/imgs/iconeEcoponto.png',
+                scaledSize: { width: 29, height: 40 },
+              },
+            }" />
+          </GoogleMap>
         </b-container>
       </div>
     </b-container>
@@ -120,7 +101,9 @@
 <script>
 import { toHandlers } from 'vue';
 import { challenges } from '../stores/challengeStore';
-import MapaHome from "../components/MapaHome.vue";
+import { eventos } from '../stores/eventStore';
+import { GoogleMap, Marker } from "vue3-google-map";
+
 import Navbar from '../components/NavBar.vue'
 
 import { storeToRefs } from "pinia";
@@ -129,18 +112,26 @@ export default {
   data() {
   },
   components: {
-    MapaHome,
     Navbar,
   },
   setup() {
     const store = challenges();
+    const store1= eventos();
+    store1.updateLocalStorage()
     // storeToRefs lets todoList keep reactivity
 
     return {
-      store
+      store,
+      store1
     };
   },
+  created () {
+    
+  }, 
+  
+
 };
+
 </script>
 
 
@@ -241,8 +232,7 @@ export default {
   color: #134C67;
   border-radius: 15px;
 }
-
-.card-title {
+.card-title{
   font-family: "Keedy Sans";
   font-size: 20px;
 }
@@ -251,10 +241,6 @@ export default {
   vertical-align: text-top;
 }
 
-#mapaDiv {
-  padding-top: 1em;
-  padding-bottom: 1em;
-  padding-left: 5em;
-  padding-right: 5em;
-}
+
+
 </style>

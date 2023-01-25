@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-export const ecopontoStore = defineStore("ecoponto", {
+export const ecopontos = defineStore("ecoponto", {
   state: () => ({
     ecopontos: [
       {
