@@ -45,8 +45,8 @@
                   <br>
                   <input v-model="password" type="password" class="form-control" placeholder="password">
                   <br>
-                  <button @click="store.login(username1, password)" type="submit" class="btn btn-primary"
-                    data-bs-dismiss="modal">Iniciar SessÃ£o</button>
+                  <input v-model="password" type="password" placeholder="password" id="inputPassword5"
+                    class="form-control" aria-describedby="passwordHelpBlock">
                 </div>
               </div>
             </div>
