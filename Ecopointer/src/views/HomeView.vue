@@ -53,8 +53,6 @@
                 <h5 class="card-title">Recolha de lixo no Porto</h5>
                 <p class="card-text">14/12/2022</p>
                 <p class="card-text">36</p><i class="bi bi-heart"></i>
-
-
                 <a href="#" class="btn btn-primary">Go somewhere</a>
               </div>
             </div>
@@ -104,21 +102,14 @@
             </b-col>
           </b-row>
         </b-container>
+      </div>
+      <div id="mapaDiv">
         <b-container>
-          <GoogleMap api-key="AIzaSyAYi2BJ0UcEc3zgu2s6g9UFV-6JHuSkyxE" style="width: 100%; height: 500px"
-            mapTypeId="hybrid" :center="center" :zoom="18">
-            <Marker :options="currentPosMarkerOptions" />
-            <Marker v-for="ecoponto in ecopontos" @click="focarEcoponto(ecoponto.id)" :key="ecoponto.id" :options="{
-              position: {
-                lat: ecoponto.coordenadas.lat,
-                lng: ecoponto.coordenadas.lng,
-              },
-              icon: {
-                url: '/src/assets/imgs/iconeEcoponto.png',
-                scaledSize: { width: 29, height: 40 },
-              },
-            }" />
-          </GoogleMap>
+          <b-row>
+            <b-col>
+              <MapaHome />
+            </b-col>
+          </b-row>
         </b-container>
       </div>
     </b-container>
@@ -129,8 +120,7 @@
 <script>
 import { toHandlers } from 'vue';
 import { challenges } from '../stores/challengeStore';
-import { GoogleMap, Marker } from "vue3-google-map";
-
+import MapaHome from "../components/MapaHome.vue";
 import Navbar from '../components/NavBar.vue'
 
 import { storeToRefs } from "pinia";
@@ -139,6 +129,7 @@ export default {
   data() {
   },
   components: {
+    MapaHome,
     Navbar,
   },
   setup() {
@@ -250,7 +241,8 @@ export default {
   color: #134C67;
   border-radius: 15px;
 }
-.card-title{
+
+.card-title {
   font-family: "Keedy Sans";
   font-size: 20px;
 }
@@ -259,6 +251,10 @@ export default {
   vertical-align: text-top;
 }
 
-
-
+#mapaDiv {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-left: 5em;
+  padding-right: 5em;
+}
 </style>
