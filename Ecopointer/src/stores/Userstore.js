@@ -2,14 +2,6 @@
 import { defineStore } from 'pinia';
 import{router} from '../router/index'
 
-
-
-
-
-
-
-
-
 export const userStore = defineStore('userStore', {
   state: () => ({
     users: localStorage.users
@@ -19,8 +11,6 @@ export const userStore = defineStore('userStore', {
         { id: 0, username: "bruno", name: "bruno", email: "alguem@gmail.com", cidade: "maia", password: '123456' },
         { id: 1, username: "bernardo", name: "bernardo", email: "alguem@gmail.com", cidade: "pombal", password: '123456' }
       ]
-
-
   }),
   getters: {
     userCount: function () {
@@ -44,25 +34,16 @@ export const userStore = defineStore('userStore', {
         cidade: cidade,
         password: password
       });
-      
-      
-
-
+      this.updateLocalStorage()
     },
     login(username, password) {
 
-
+      console.log(username, password);
       if (this.users.find((user) => user.username == username)) {
         if (this.users.find((user) => user.password == password)) {
-
-
-
+  
           console.log("Login efetuado com sucesso");
-          router.push('/map')
-          
-          
-          
-          
+          router.push('/map') 
         }
       }
     },
