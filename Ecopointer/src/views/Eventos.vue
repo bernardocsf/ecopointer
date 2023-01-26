@@ -48,7 +48,7 @@
             <div id="cards">
                 <b-container>
                     <div class="card-container">
-                        <div @load="store1.updateLocalStorage()" v-for="evento in store1.eventos" class="p-2">
+                        <div @load="store1.updateLocalStorage()" v-for="evento in store1.eventos" class="p-2" :key="evento.id">
                             <div class="card">
                                 <div class="card-left">
                                     <div class="card-body">
