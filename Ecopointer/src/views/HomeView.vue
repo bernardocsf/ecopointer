@@ -8,7 +8,6 @@
         <b-container>
           <b-row>
             <b-col>
-              
               <span id="titleUm">Desafios da semana </span>
               <img id="imgpoint" src="../assets/point.png">
               <span id="subTitleUm"> Novos desafios em menos de 72 horas</span>
@@ -46,24 +45,23 @@
         </b-container>
       </div>
       <b-container>
-        <div  id="cardGroups" class="d-flex">
+        <div id="cardGroups" class="d-flex">
           <div @load="store1.updateLocalStorage()" v-for="evento in store1.eventos " class="p-2" :key="evento.id">
-            <div v-if="evento.id<=3" class="card">
+            <div v-if="evento.id <= 3" class="card">
               <img class="card-img-top" :src="evento.imagem" alt="Card image cap">
               <div class="card-body">
                 <h5 class="card-title">{{ evento.nome }}</h5>
 
                 <p class="card-text">{{ evento.data }}</p>
-                <p class="card-text"> <button style="border:none " ><img src="src/assets/gosto.png" alt=""></button> {{ evento.gostos }}</p><i class="bi bi-heart"></i>
-
-
+                <p class="card-text"> <button style="border:none "><img src="src/assets/gosto.png" alt=""></button> {{
+                  evento.gostos
+                }}</p><i class="bi bi-heart"></i>
                 <a href="/eventos" class="btn btn-primary">Go somewhere</a>
               </div>
             </div>
           </div>
         </div>
       </b-container>
-
       <div id="tituloDiv">
         <b-container>
           <b-row>
@@ -76,44 +74,44 @@
         </b-container>
         <div id="mapa">
           <b-container>
-            <b-row>
-              <b-col>
-                <span id="titleUm">Tabela de líderes</span>
-              </b-col>
-            </b-row>
-          </b-container>
-        </div>
-        <div id="btnsDiv">
-          <b-container>
-            <b-row>
-              <b-col>
-                <div class="d-flex">
-                  <div class="p-2"><a href="#" class="btn btn-primary">Mensal</a></div>
-                  <div class="p-2"><button type="button" class="btn btn-outline-primary">Global</button></div>
-                </div>
-              </b-col>
-            </b-row>
+            <mapa />
           </b-container>
         </div>
       </div>
+      <div id="tituloDiv">
+        <b-container>
+          <span id="titleUm">Tabela de líderes</span>
+        </b-container>
+      </div>
+      <div id="btnsDiv">
+        <b-container>
+          <b-row>
+            <b-col>
+              <div class="d-flex">
+                <div class="p-2"><a id="btnMensal" class="btn btn-primary">Mensal</a></div>
+                <div class="p-2"><button id="btnGlobal" type="button" class="btn btn-primary">Global</button></div>
+              </div>
+            </b-col>
+          </b-row>
+        </b-container>
+      </div>
+
 
       <b-container>
         <div id="tableClass">
           <table class="table">
-   
-            <tbody v-for="(user, number) in store2.orderByXp " :key ="number">
-              <tr v-if="number<=4" id="rt"  >
+            <tbody v-for="(user, number) in store2.orderByXp " :key="number">
+              <tr v-if="number <= 4" id="rt">
                 <td id="tdnumClassificacao">{{ number+ 1 }}o</td>
                 <td id="tdnameClassificacao">{{ user.name }}</td>
                 <td id="tdxpsClassificacao">{{ user.xps }}</td>
-                
               </tr>
             </tbody>
           </table>
         </div>
       </b-container>
 
-      
+
       <div id="footer">
         <b-container>
           <Footer />
@@ -140,10 +138,10 @@ import { storeToRefs } from "pinia";
 
 export default {
   data() {
-    return{
-      number:0
+    return {
+      number: 0
     }
- 
+
   },
   components: {
     Navbar,
@@ -156,14 +154,14 @@ export default {
     const store1 = eventos();
     const store2 = userStore();
     store1.updateLocalStorage()
-    
+
     // storeToRefs lets todoList keep reactivity
 
     return {
       store,
       store1,
       store2
-      
+
     };
 
   },
@@ -295,7 +293,6 @@ tr {
   width: 50%;
 }
 
-
 #btnsDiv {
   font-family: "Keedy Sans";
   padding-top: 1em;
@@ -350,5 +347,4 @@ tr {
   margin: auto;
   width: 60%;
 }
-
 </style>

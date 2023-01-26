@@ -6,7 +6,7 @@ export const userStore = defineStore('userStore', {
     users: localStorage.users ? JSON.parse(localStorage.users)
       : [
         { id: 0, username: "bruno", name: "bruno", email: "alguem@gmail.com", cidade: "maia", password: '123456', xps:500 },
-        { id: 1, username: "bernardo", name: "bernardo", email: "alguem@gmail.com", cidade: "pombal", password: '123456',xps:5000 }
+        { id: 1, username: "bernardo", name: "bernardo", email: "alguem@gmail.com", cidade: "pombal", password: '123456', xps:5000 }
       ]
   }),
   getters: {
