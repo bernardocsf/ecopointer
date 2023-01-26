@@ -8,6 +8,7 @@
         <b-container>
           <b-row>
             <b-col>
+              
               <span id="titleUm">Desafios da semana </span>
               <img id="imgpoint" src="../assets/point.png">
               <span id="subTitleUm"> Novos desafios em menos de 72 horas</span>
@@ -47,16 +48,16 @@
       <b-container>
         <div  id="cardGroups" class="d-flex">
           <div @load="store1.updateLocalStorage()" v-for="evento in store1.eventos " class="p-2">
-            <div  class="card">
+            <div v-if="evento.id<=3" class="card">
               <img class="card-img-top" :src="evento.imagem" alt="Card image cap">
               <div class="card-body">
                 <h5 class="card-title">{{ evento.nome }}</h5>
                 
                 <p class="card-text">{{ evento.data }}</p>
-                <p class="card-text">36</p><i class="bi bi-heart"></i>
+                <p class="card-text"> <button style="border:none " ><img src="src/assets/gosto.png" alt=""></button> {{ evento.gostos }}</p><i class="bi bi-heart"></i>
 
 
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <a href="/eventos" class="btn btn-primary">Go somewhere</a>
               </div>
             </div>
           </div>
@@ -97,21 +98,25 @@
                 <div class="d-flex">
                   <div class="p-2"><a href="#" class="btn btn-primary">Mensal</a></div>
                   <div class="p-2"><button type="button" class="btn btn-outline-primary">Global</button></div>
+                  
                 </div>
               </b-col>
             </b-row>
           </b-container>
         </div>
+        
       </div>
 
       <b-container>
         <div id="tableClass">
           <table class="table">
-            <tbody>
-              <tr id="rt" v-for="user in store2.getUsers" >
-                <td id="tdnumClassificacao">{{ user.id + 1 }}o</td>
+   
+            <tbody v-for="(user, number) in store2.orderByXp " :key ="number">
+              <tr v-if="number<=4" id="rt"  >
+                <td id="tdnumClassificacao">{{ number+ 1 }}o</td>
                 <td id="tdnameClassificacao">{{ user.name }}</td>
-                <td id="tdxpsClassificacao">{{ user.name }}</td>
+                <td id="tdxpsClassificacao">{{ user.xps }}</td>
+                
               </tr>
             </tbody>
           </table>
@@ -136,7 +141,10 @@ import { storeToRefs } from "pinia";
 
 export default {
   data() {
-
+    return{
+      number:0
+    }
+ 
   },
   components: {
     Navbar,
@@ -148,12 +156,14 @@ export default {
     const store1= eventos();
     const store2= userStore();
     store1.updateLocalStorage()
+    
     // storeToRefs lets todoList keep reactivity
 
     return {
       store,
       store1,
-      store2
+      store2,
+      
       
     };
 
