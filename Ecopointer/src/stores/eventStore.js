@@ -72,7 +72,9 @@ export const eventos = defineStore('eventStore', {
    eliminarEvento(evento){
     //this.getuserByid(user.id)
     this.eventos.splice(evento, 1);
+    
     this.updateLocalStorage()
+    return this.eventos
 
     
   }

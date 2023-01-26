@@ -2,7 +2,8 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 export const ecopontos = defineStore("ecoponto", {
   state: () => ({
-    ecopontos: localStorage.ecopontos ? JSON.parse(localStorage.ecopontos)
+    ecopontos: localStorage.ecopontos
+    ? JSON.parse(localStorage.ecopontos)
     :  [
       {
         id: 0,
@@ -66,4 +67,25 @@ export const ecopontos = defineStore("ecoponto", {
         });
       this.updateLocalStorage()
     },
+    orderById: function() {
+  
+
+  
+      this.ecopontos = this.ecopontos.sort((a, b) => a.id-b.id);
+      this.updateLocalStorage()
+      return this.ecopontos
+      
+      
+      
+   
+     
+   
+   },
+   eliminarEcoponto(ecoponto){
+    //this.getuserByid(user.id)
+    this.ecopontos.splice(ecoponto, 1);
+    this.updateLocalStorage()
+
+    
+  }
 }})

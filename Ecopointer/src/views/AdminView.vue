@@ -149,7 +149,7 @@
   
       const store1 = eventos();
       const store2 = userStore();
-      store1.updateLocalStorage();
+      
       const store3= challenges();
       
   

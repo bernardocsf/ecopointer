@@ -7,17 +7,16 @@
       <li class="nav-item">
         <a class="nav-link"   id="pills-profile-tab" data-toggle="pill" href="/map" role="tab" aria-controls="pills-profile" aria-selected="false" style="color: #134C67">Mapa</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item me-auto">
         <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="/eventos" role="tab" aria-controls="pills-contact" aria-selected="false" style="color: #134C67">Evento</a>
       </li>
-      <li class="nav-item me-auto">
-        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="/ajuda" role="tab" aria-controls="pills-contact" aria-selected="false" style="color: #134C67">Ajuda</a>
+      
+      
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="pill" href="/perfil" role="tab" aria-controls="pills-contact" aria-selected="false">Perfil</a>
       </li>
       <li class="nav-item">
-        <button type="button" id="loginButton" class="btn btn-primary"><a class="nav-link" href="/perfil">Perfil</a></button>
-      </li>
-      <li class="nav-item">
-        <button type="button" id="loginButton" href="/ajuda" class="btn btn-primary">Notificações</button>
+        <a class="nav-link" data-toggle="pill" href="/" role="tab" aria-controls="pills-contact" aria-selected="false">Sair</a>
       </li>
     </ul>
   </main>

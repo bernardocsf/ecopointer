@@ -11,15 +11,13 @@
           <b-container>
             <div id="tablePerfil">
               <table class="table">
-                <tbody v-for="(user, number) in store2.orderByXp " :key="number">
-                  <tr v-if="number <= 0" id="rt">
+                <tbody >
+                  <tr  id="rt">
                     <td id="tdfotoPerfil"><img src="../assets/perfil.jpg" id="fotoPerfil" class="card-img-top"></td>
                   </tr>
+                
                   <tr v-if="number <= 0">
-                    <td id="tdnamePerfil">{{ user.name }}</td>
-                  </tr>
-                  <tr v-if="number <= 0">
-                    <td id="tdusernamePerfil">@{{ user.username }}</td>
+                    <td id="tdusernamePerfil">@{{ nome }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -111,7 +109,8 @@ export default {
   data() {
     return {
       number: 0,
-      isDisabled: false
+      isDisabled: false,
+      nome: localStorage.getItem("userLogado"),
     }
 
   },
@@ -142,12 +141,10 @@ export default {
       this.isDisabled = true;
     }
   },
-  created() {
-
-  },
+  
 
 
-};
+}
 
 </script>
 

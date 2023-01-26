@@ -8,34 +8,7 @@
                     </b-col>
                 </b-row>
             </b-container>
-            <b-container>
-                <b-row>
-                    <b-col>
-                        <h1 id="titulo1">Uma nova forma de reciclar...</h1>
-                        <p id="desc1">Com a EcoPointer, reciclar tornou-se muito mais interativo! Compartilha a tua
-                            contribuição para melhorar o nosso planeta, enquanto podes ganhar prémios e recompensas pelo
-                            caminho!!</p>
-                    </b-col>
-                </b-row>
-            </b-container>
-            <b-container>
-                <b-row>
-                    <b-col>
-                        <h1 id="titulo2">Encontra ecopontos no mapa!</h1>
-                        <p id="desc2">Disponibilizamos no nosso mapa os ecopontos mais próximos de ti. No entanto, não
-                            são os únicos. A tua contribuição é fundamental para a atualização do mapa.</p>
-                    </b-col>
-                </b-row>
-            </b-container>
-            <b-container>
-                <b-row>
-                    <b-col>
-                        <h1 id="titulo3">Participa em eventos!</h1>
-                        <p id="desc3">A reciclagem não é a única maneira de ajudar o planeta. Podes conferir uma grande
-                            variedade de eventos ecológicos e ambientais e sentir-te acolhido pela nossa comunidade!</p>
-                    </b-col>
-                </b-row>
-            </b-container>
+            
         </b-container>
     <FooterLanding />
     </div>
