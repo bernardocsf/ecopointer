@@ -45,13 +45,13 @@
         </b-container>
       </div>
       <b-container>
-        <div  id="cardGroups" class="d-flex">
-          <div @load="store1.updateLocalStorage()" v-for="evento in store1.eventos " class="p-2">
-            <div  class="card">
+        <div id="cardGroups" class="d-flex">
+          <div @load="store1.updateLocalStorage()" v-for="evento in store1.eventos" class="p-2">
+            <div class="card">
               <img class="card-img-top" :src="evento.imagem" alt="Card image cap">
               <div class="card-body">
                 <h5 class="card-title">{{ evento.nome }}</h5>
-                
+
                 <p class="card-text">{{ evento.data }}</p>
                 <p class="card-text">36</p><i class="bi bi-heart"></i>
 
@@ -60,12 +60,9 @@
               </div>
             </div>
           </div>
-          
-          
-          
-            
         </div>
       </b-container>
+
       <div id="tituloDiv">
         <b-container>
           <b-row>
@@ -76,39 +73,37 @@
             </b-col>
           </b-row>
         </b-container>
+        <div id="mapa">
+          <b-container>
+            <mapa />
+          </b-container>
+        </div>
+      </div>
+
+
+      <div id="tituloDiv">
         <b-container>
-          <mapa/>
+          <span id="titleUm">Tabela de líderes</span>
         </b-container>
       </div>
-      <div>
-        <div id="tituloDiv">
-          <b-container>
-            <b-row>
-              <b-col>
-                <span id="titleUm">Tabela de líderes</span>
-              </b-col>
-            </b-row>
-          </b-container>
-        </div>
-        <div id="btnsDiv">
-          <b-container>
-            <b-row>
-              <b-col>
-                <div class="d-flex">
-                  <div class="p-2"><a href="#" class="btn btn-primary">Mensal</a></div>
-                  <div class="p-2"><button type="button" class="btn btn-outline-primary">Global</button></div>
-                </div>
-              </b-col>
-            </b-row>
-          </b-container>
-        </div>
+      <div id="btnsDiv">
+        <b-container>
+          <b-row>
+            <b-col>
+              <div class="d-flex">
+                <div class="p-2"><a id="btnMensal" class="btn btn-primary">Mensal</a></div>
+                <div class="p-2"><button id="btnGlobal" type="button" class="btn btn-primary">Global</button></div>
+              </div>
+            </b-col>
+          </b-row>
+        </b-container>
       </div>
 
       <b-container>
         <div id="tableClass">
           <table class="table">
             <tbody>
-              <tr id="rt" v-for="user in store2.getUsers" >
+              <tr id="rt" v-for="user in store2.getUsers">
                 <td id="tdnumClassificacao">{{ user.id + 1 }}o</td>
                 <td id="tdnameClassificacao">{{ user.name }}</td>
                 <td id="tdxpsClassificacao">{{ user.name }}</td>
@@ -117,7 +112,15 @@
           </table>
         </div>
       </b-container>
-    </b-container>/
+
+      
+      <div id="footer">
+        <b-container>
+          <Footer />
+        </b-container>
+      </div>
+
+    </b-container>
   </div>
 </template>
 
@@ -127,8 +130,9 @@ import { toHandlers } from 'vue';
 import { challenges } from '../stores/challengeStore';
 import { eventos } from '../stores/eventStore';
 import { GoogleMap, Marker } from "vue3-google-map";
-import {userStore} from "../stores/Userstore"
+import { userStore } from "../stores/Userstore"
 import Mapa from "../components/MapaHome.vue"
+import Footer from '../components/Footer.vue';
 
 import Navbar from '../components/NavBar.vue'
 
@@ -140,13 +144,14 @@ export default {
   },
   components: {
     Navbar,
-    Mapa
+    Mapa,
+    Footer
   },
   setup() {
     const store = challenges();
-    
-    const store1= eventos();
-    const store2= userStore();
+
+    const store1 = eventos();
+    const store2 = userStore();
     store1.updateLocalStorage()
     // storeToRefs lets todoList keep reactivity
 
@@ -154,14 +159,13 @@ export default {
       store,
       store1,
       store2
-      
     };
 
   },
-  created () {
-    
-  }, 
-  
+  created() {
+
+  },
+
 
 };
 
@@ -267,15 +271,79 @@ tr {
   color: #134C67;
   border-radius: 15px;
 }
-.card-title{
+
+.card-title {
   font-family: "Keedy Sans";
   font-size: 20px;
 }
 
-#imgpoint {
-  vertical-align: text-top;
+#mapa {
+  padding-top: 2em;
+  padding-bottom: 2em;
+  padding-right: 5em;
+}
+
+#tableClass {
+  padding-left: 5em;
+  padding-right: 5em;
+  font-family: "Keedy Sans";
+  width: 50%;
 }
 
 
+#btnsDiv {
+  font-family: "Keedy Sans";
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-left: 5em;
+  padding-right: 5em;
+}
+
+#btnMensal {
+  font-size: 20px;
+  background-color: #134C67;
+  border-color: #134C67;
+  border-width: 3px
+}
+
+#btnGlobal {
+  font-size: 20px;
+  color: #134C67;
+  border-color: #134C67;
+  background-color: #C6DDC5;
+  border-width: 3px;
+}
+
+#btnGlobal:hover {
+  color: #F7F4F3;
+  background-color: #134c67;
+}
+
+#tdnumClassificacao {
+  width: 10%;
+  color: #F7F4F3;
+  background-color: #95C697;
+  text-align: center;
+}
+
+#tdnameClassificacao {
+  width: 30%;
+  color: #95C697;
+  background-color: #F7F4F3;
+}
+
+#tdxpsClassificacao {
+  width: 20%;
+  font-size: 24px;
+  color: #59985F;
+  background-color: #F7F4F3;
+  text-align: right;
+}
+
+#footer {
+  display: block;
+  margin: auto;
+  width: 60%;
+}
 
 </style>

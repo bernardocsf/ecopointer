@@ -37,18 +37,18 @@
                 </b-row>
             </b-container>
         </b-container>
-    <Footer />
+    <FooterLanding />
     </div>
 </template>
 
 <script>
 import NavbarLanding from '../components/NavBarLanding.vue'
-import Footer from '../components/Footer.vue';
+import FooterLanding from '../components/FooterLanding.vue';
 
 export default {
     components: {
         NavbarLanding,
-        Footer
+        FooterLanding
     },
 }
 </script>
