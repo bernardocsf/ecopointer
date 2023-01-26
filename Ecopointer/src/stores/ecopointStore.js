@@ -8,9 +8,10 @@ export const ecopontos = defineStore("ecoponto", {
         id: 0,
         nome:"Ecoponto1",
         morada: "R. Dom Sancho I",
-        latitude: 41.366709,
-        longitude: -8.738114,
-    
+
+          latitude: 41.366709,
+          longitude: -8.738114,
+
 
 
       },

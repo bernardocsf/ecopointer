@@ -46,7 +46,7 @@
       </div>
       <b-container>
         <div id="cardGroups" class="d-flex">
-          <div @load="store1.updateLocalStorage()" v-for="evento in store1.eventos " class="p-2" :key="evento.id">
+          <div @load="store1.updateLocalStorage()" v-for="evento in store1.orderByGostos " class="p-2" :key="evento.id">
             <div v-if="evento.id <= 3" class="card">
               <img class="card-img-top" :src="evento.imagem" alt="Card image cap">
               <div class="card-body">

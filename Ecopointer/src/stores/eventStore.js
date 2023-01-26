@@ -18,6 +18,18 @@ export const eventos = defineStore('eventStore', {
 
     },
     getEventoByid: (state) => (id) => state.eventos.find(evento => evento.id == id),
+    orderByGostos: function() {
+  
+
+  
+      this.eventos = this.eventos.sort((a, b) => b.gostos-a.gostos);
+      return this.eventos
+      
+   
+     
+   
+   },
+   
   },
 
   actions: 
@@ -25,14 +37,15 @@ export const eventos = defineStore('eventStore', {
     updateLocalStorage() {
       localStorage.setItem('eventos', JSON.stringify(this.eventos));
     },
-    addEvento(nome, descriçao,cidade, data, imagem) {
+    addEvento(nome, descriçao, cidade, data, imagem) {
       this.eventos.push({
         id: this.eventos.length,
         nome: nome,
         descriçao: descriçao,
         cidade: cidade,
         data: data,
-        imagem: imagem
+        imagem: imagem,
+        gostos:0
       });
       this.updateLocalStorage()
     },
@@ -41,8 +54,29 @@ export const eventos = defineStore('eventStore', {
       evento.gostos=evento.gostos+1
       this.updateLocalStorage()
 
+      
+    },
+    orderById: function() {
+  
 
-    }
+  
+      this.eventos = this.eventos.sort((a, b) => a.id-b.id);
+      this.updateLocalStorage()
+      return this.eventos
+      
+      
+   
+     
+   
+   },
+   eliminarEvento(evento){
+    //this.getuserByid(user.id)
+    this.eventos.splice(evento, 1);
+    this.updateLocalStorage()
+
+    
+  }
+    
    
     
   }})

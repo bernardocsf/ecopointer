@@ -35,16 +35,18 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg">
+                                    <input  v-model="imagem" type="text" id="avatar" name="avatar" placeholder="url imagem" >
                                 </div>
                             </div>
-                            <button @click="store1.addEvento(titulo, descricao, cidade, data)" type="submit"
+                            <button @click="store1.addEvento(titulo, descricao, cidade, data, imagem)" type="submit"
+
                                 class="btn btn-primary mx-auto d-blockm" data-bs-dismiss="modal">Criar
                                 evento</button>
                         </div>
                     </div>
                 </div>
             </div>
+
             <div id="cards">
                 <b-container>
                     <div class="card-container">
@@ -108,6 +110,11 @@ export default {
         };
 
     },
+    methods: {
+    disableButton() {
+      this.isDisabled = true;
+    }
+  },
 };
 
 </script>

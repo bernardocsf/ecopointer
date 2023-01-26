@@ -31,6 +31,11 @@ export const router = createRouter({
       path: '/perfil',
       name: 'perfil',
       component: () => import('../views/PerfilView.vue')
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: () => import('../views/AdminView.vue')
     }
   ]
 })
