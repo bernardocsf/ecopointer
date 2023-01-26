@@ -53,15 +53,25 @@
                 <h5 class="card-title">{{ evento.nome }}</h5>
 
                 <p class="card-text">{{ evento.data }}</p>
-                <p class="card-text"> <button style="border:none "><img src="src/assets/gosto.png" alt=""></button> {{
-                  evento.gostos
-                }}</p><i class="bi bi-heart"></i>
-                <a href="/eventos" class="btn btn-primary">Go somewhere</a>
+                <div id="d-flexCards" class="d-flex">
+                  <div class="p-2">
+                    <button v-bind:disabled="isDisabled" @click="store1.addGosto(evento), disableButton()"
+                      style="border:none; background-color: #FFFFFF"><img src="src/assets/gosto.png" alt=""></button>
+                    {{
+                      evento.gostos
+                    }}
+                  </div>
+                  <div class="p-2">
+                    <button style="border:none; background-color: #FFFFFF"><a href="/eventos"><img
+                          src="src/assets/botaosabermais.svg"></a></button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </b-container>
+
       <div id="tituloDiv">
         <b-container>
           <b-row>
@@ -78,39 +88,51 @@
           </b-container>
         </div>
       </div>
-      <div id="tituloDiv">
-        <b-container>
-          <span id="titleUm">Tabela de líderes</span>
-        </b-container>
-      </div>
-      <div id="btnsDiv">
-        <b-container>
-          <b-row>
-            <b-col>
-              <div class="d-flex">
-                <div class="p-2"><a id="btnMensal" class="btn btn-primary">Mensal</a></div>
-                <div class="p-2"><button id="btnGlobal" type="button" class="btn btn-primary">Global</button></div>
-              </div>
-            </b-col>
-          </b-row>
-        </b-container>
-      </div>
 
 
-      <b-container>
-        <div id="tableClass">
-          <table class="table">
-            <tbody v-for="(user, number) in store2.orderByXp " :key="number">
-              <tr v-if="number <= 4" id="rt">
-                <td id="tdnumClassificacao">{{ number+ 1 }}o</td>
-                <td id="tdnameClassificacao">{{ user.name }}</td>
-                <td id="tdxpsClassificacao">{{ user.xps }}</td>
-              </tr>
-            </tbody>
-          </table>
+      <div id="container">
+        <div id="left">
+          <b-container>
+            <div id="tituloDiv">
+              <b-container>
+                <span id="titleUm">Tabela de líderes</span>
+              </b-container>
+            </div>
+            <div id="btnsDiv">
+              <b-container>
+                <b-row>
+                  <b-col>
+                    <div class="d-flex">
+                      <div class="p-2"><a id="btnMensal" class="btn btn-primary">Mensal</a></div>
+                      <div class="p-2"><button id="btnGlobal" type="button" class="btn btn-primary">Global</button>
+                      </div>
+                    </div>
+                  </b-col>
+                </b-row>
+              </b-container>
+            </div>
+
+            <div id="tableClass">
+              <table class="table">
+                <tbody v-for="(user, number) in store2.orderByXp " :key="number">
+                  <tr v-if="number <= 4" id="rt">
+                    <td id="tdnumClassificacao">{{ number+ 1 }}o</td>
+                    <td id="tdnameClassificacao">{{ user.name }}</td>
+                    <td id="tdxpsClassificacao">{{ user.xps }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </b-container>
         </div>
-      </b-container>
-
+        <div id="right">
+          <b-container>
+            <div id="tableClass">
+              <img id="imgClassificacao" src="../assets/leaderboard.png">
+            </div>
+          </b-container>
+        </div>
+      </div>
 
       <div id="footer">
         <b-container>
@@ -139,14 +161,15 @@ import { storeToRefs } from "pinia";
 export default {
   data() {
     return {
-      number: 0
+      number: 0,
+      isDisabled: false
     }
 
   },
   components: {
     Navbar,
     Mapa,
-    Footer
+    Footer,
   },
   setup() {
     const store = challenges();
@@ -165,6 +188,11 @@ export default {
     };
 
   },
+  methods: {
+    disableButton() {
+      this.isDisabled = true;
+    }
+  },
   created() {
 
   },
@@ -178,6 +206,24 @@ export default {
 <style scoped>
 .homePage {
   background-color: #C6DDC5;
+}
+
+#container {
+  display: flex;
+  width: 100%;
+}
+
+#left {
+  width: 60%;
+}
+
+#right {
+  width: 40%;
+}
+
+#d-flexCards {
+  justify-content: space-between;
+  align-items: center;
 }
 
 #tituloDiv {
@@ -290,7 +336,7 @@ tr {
   padding-left: 5em;
   padding-right: 5em;
   font-family: "Keedy Sans";
-  width: 50%;
+  width: 100%;
 }
 
 #btnsDiv {
@@ -341,6 +387,13 @@ tr {
   background-color: #F7F4F3;
   text-align: right;
 }
+
+#imgClassificacao {
+  width: 100%;
+  padding-top: 4em;
+  padding-bottom: 1em;
+}
+
 
 #footer {
   display: block;

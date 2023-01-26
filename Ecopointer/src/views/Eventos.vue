@@ -38,7 +38,7 @@
                                     <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg">
                                 </div>
                             </div>
-                            <button @click="this.store.addEvento(titulo, descricao, cidade, data)" type="submit"
+                            <button @click="store1.addEvento(titulo, descricao, cidade, data)" type="submit"
                                 class="btn btn-primary mx-auto d-blockm" data-bs-dismiss="modal">Criar
                                 evento</button>
                         </div>
@@ -48,13 +48,18 @@
             <div id="cards">
                 <b-container>
                     <div class="card-container">
-                        <div @load="store1.updateLocalStorage()" v-for="evento in store1.eventos" class="p-2" :key="evento.id">
+                        <div @load="store1.updateLocalStorage()" v-for="evento in store1.eventos" class="p-2"
+                            :key="evento.id">
                             <div class="card">
                                 <div class="card-left">
                                     <div class="card-body">
                                         <h5 class="card-title">{{ evento.nome }}</h5><br>
                                         <p id="cardDesc" class="card-text">{{ evento.descriçao }}</p><br>
-                                        <p class="card-text"><small class="text-muted">{{ evento.data }}</small>
+                                        <p class="card-text"><button v-bind:disabled="isDisabled"
+                                                @click="store1.addGosto(evento), disableButton()"
+                                                style="border:none; background-color: #FFFFFF"><img
+                                                    src="src/assets/gosto.png" alt=""></button>
+                                            {{evento.gostos}}
                                         </p>
                                     </div>
                                 </div>
@@ -66,6 +71,7 @@
                     </div>
                 </b-container>
             </div>
+
             <div id="footer">
                 <b-container>
                     <Footer />
@@ -86,7 +92,7 @@ import { storeToRefs } from "pinia";
 
 export default {
     data() {
-
+        isDisabled: false
     },
     components: {
         Navbar,
@@ -129,13 +135,15 @@ export default {
 }
 
 .card-left {
-  width: 78%;
+    width: 78%;
 }
+
 .card-right img {
-  width: 40vh;
+    width: 40vh;
 }
+
 .card-right {
-  width: 22%;
+    width: 22%;
 }
 
 #header {

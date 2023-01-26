@@ -3,13 +3,10 @@
    <GoogleMap api-key="AIzaSyAYi2BJ0UcEc3zgu2s6g9UFV-6JHuSkyxE"  style="width: 100%; height: 450px" :center="center" :zoom="18">
     
       <Marker
-      v-for="ecoponto in ecopontos"
-      
-      
-      :options="{
-        position: {
-          lat: ecoponto.coordenadas.lat,
-          lng: ecoponto.coordenadas.lng,
+      v-for="ecoponto in ecopontos" :key="ecoponto.id" :options="{ 
+          position: {
+          lat: ecoponto.latitude,
+          lng: ecoponto.longitude,
         },
         icon: {
           url: '/src/assets/marker.png',

@@ -36,9 +36,12 @@ export const eventos = defineStore('eventStore', {
       });
       this.updateLocalStorage()
     },
-    addGosto(){
-      getEventoByid: (state) => (id) => state.eventos.find(evento => evento.id == id) ,
-      evento.gostos+1
+    addGosto(evento){
+      this.getEventoByid(evento.id)
+      evento.gostos=evento.gostos+1
+      this.updateLocalStorage()
+
+
     }
    
     
