@@ -1,51 +1,75 @@
 <template>
-  <div class="homePage">
+  <div class="mapaPage">
     <b-container fluid>
       <b-container>
-        <b-row>
-          <b-col>
-            <Navbar />
-          </b-col>
-        </b-row>
-      </b-container>
-      <b-container id="desafios">
-        <b-row>
-          <b-col>
-            <span id="titleUm">Desafios da semana</span>
-            <span id="subTitleUm">Novos desafios em menos de 72 horas</span>
-          </b-col>
-        </b-row>
+        <Navbar />
       </b-container>
 
+      <div id="tituloDiv">
+        <b-container>
+          <b-row>
+            <b-col>
+              <span id="titleUm">O teu mapa </span>
+              <span><img id="imgpoint" src="../assets/point.png"></span>
+              <span id="subTitleUm"> Filtra o mapa e encontra o ecoponto que procuras</span>
+            </b-col>
+          </b-row>
+        </b-container>
+      </div>
+
+      <div id="container">
+        <div id="left">
+
+          <div id="mapa">
+            <b-container>
+              <mapa />
+            </b-container>
+          </div>
+        </div>
+
+        <div id="right">
+          <div id="tituloDive">
+            <b-container>
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td><input v-model="nome" type="text" class="form-control" placeholder="nome"></td>
+                  </tr>
+                  <tr>
+                    <td><input v-model="morada" type="text" class="form-control" placeholder="morada"></td>
+                  </tr>
+                  <tr>
+                    <td><input v-model="lat" type="number" class="form-control" placeholder="latitude"></td>
+                  </tr>
+                  <tr>
+                    <td><input v-model="lng" type="number" class="form-control" placeholder="longitude"></td>
+                  </tr>
+                </tbody>
+                <button @click="store.addEcoponto(nome, morada, lat, lng)" type="submit" class="btn btn-primary"
+                  data-bs-dismiss="modal">Adicionar</button>
+              </table>
+            </b-container>
+          </div>
+        </div>
+      </div>
+
+      <div id="footer">
+        <b-container>
+          <Footer />
+        </b-container>
+      </div>
+
     </b-container>
-    <div>
-      <table class="table">
-  <thead>
-    <tr>
-      
-      <th scope="col">desafio</th>
-      
-    </tr>
-  </thead>
-  <tbody>
-    <tr v-for="desafio in store.getDesafios">
-     
-      <td>{{ desafio.nome }}</td>
-      
-    </tr>
-    
-    
-  </tbody>
-</table>
-    </div>
   </div>
 </template>
 
 
 <script>
 import { toHandlers } from 'vue';
-import { challenges } from '../stores/challengeStore';
+import { ecopontos } from '../stores/ecopointStore';
 import Navbar from '../components/NavBar.vue'
+import Footer from '../components/Footer.vue';
+import Mapa from "../components/MapaHome.vue"
 
 import { storeToRefs } from "pinia";
 
@@ -54,13 +78,15 @@ export default {
   },
   components: {
     Navbar,
+    Mapa,
+    Footer
   },
   setup() {
-    const store = challenges();
+    const store = ecopontos();
     // storeToRefs lets todoList keep reactivity
 
     return {
-      store
+      store,
     };
   },
 };
@@ -68,16 +94,50 @@ export default {
 
 
 <style scoped>
-.homePage {
+.mapaPage {
   background-color: #C6DDC5;
-  background-size: cover;
-  height: 2838px;
-  width: 100%;
 }
 
-#desafios {
-  margin: auto;
-  width: 50%;
+#container {
+  display: flex;
+  width: 100%;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-left: 5em;
+  padding-right: 5em;
+}
+
+#left {
+  width: 70%;
+}
+
+#right {
+  width: 30%;
+}
+
+#d-flexCards {
+  justify-content: space-between;
+  align-items: center;
+}
+
+#tituloDiv {
+  padding-left: 5em;
+  padding-top: 2em;
+}
+
+#tituloDive {
+  padding-left: 5em;
+  padding-top: 2em;
+}
+
+#tituloDive {
+  padding-top: 2em;
+  padding-bottom: 2em;
+  padding-right: 5em;
+}
+
+#imgpoint {
+  vertical-align: text-top;
 }
 
 #titleUm {
@@ -90,16 +150,19 @@ export default {
   font-family: "Keedy Sans";
   font-size: 20px;
   color: #134C67;
+  vertical-align: super;
+}
+
+#mapa {
+  padding-top: 2em;
+  padding-bottom: 2em;
+  padding-right: 5em;
+  width: 100%;
+}
+
+#footer {
+  display: block;
+  margin: auto;
+  width: 60%;
 }
 </style>
-
-
-
-
-
-
-
-
-
-
-
