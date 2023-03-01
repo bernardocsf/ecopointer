@@ -16,12 +16,31 @@
         <a class="nav-link" data-toggle="pill" href="/perfil" role="tab" aria-controls="pills-contact" aria-selected="false">Perfil</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="pill" href="/" role="tab" aria-controls="pills-contact" aria-selected="false">Sair</a>
+        <a @click="store.terminarSessao()" class="nav-link" data-toggle="pill" href="/" role="tab" aria-controls="pills-contact" aria-selected="false">Sair</a>
       </li>
     </ul>
   </main>
 
 </template>
+
+<script>
+import { toHandlers } from 'vue';
+import { userStore } from '../stores/Userstore';
+
+import { storeToRefs } from "pinia";
+
+export default {
+  setup() {
+    const store = userStore();
+    return {
+      store
+    };
+  },
+  beforeUpdate() {
+    this.store.terminarSessao();
+  },
+};
+</script>
 
 <style scoped>
 

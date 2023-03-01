@@ -26,11 +26,9 @@
                     </b-col>
                 </div>
                 <div class="p-5">
-                    <b-list-group>
-                        <b-list-group-item button><img src="../assets/faceIcon.svg"></b-list-group-item><br>
-                        <b-list-group-item button><img src="../assets/instaIcon.svg"></b-list-group-item><br>
-                        <b-list-group-item button><img src="../assets/emailIcon.svg"></b-list-group-item><br>
-                    </b-list-group>
+                    <img id="icon" src="../assets/faceIcon.svg">
+                    <img id="icon" src="../assets/instaIcon.svg">
+                    <img id="icon" src="../assets/emailIcon.svg">
                 </div>
             </div>
         </b-container>
@@ -47,8 +45,6 @@ footer {
 }
 
 #footer {
-    position: relative;
-    display: block;
     margin: auto;
     width: 60%;
 }
@@ -66,5 +62,10 @@ footer {
     color: #1D202C;
     width: 500px;
 }
+
+#icon{
+    margin-top: 20px;
+}
+
 </style>
 

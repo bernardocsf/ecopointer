@@ -28,6 +28,27 @@
         </div>
 
         <div id="right">
+          <b-container>
+            <div id="painelFilters">
+              <select name="cars" id="cars">
+                <option value="volvo" disabled>Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+              </select>
+              <p id="filterbox"><input type="checkbox"> Caminho mais rápido</p>
+              <p id="filterbox"><input type="checkbox"> Caminho mais curto</p>
+              <button type="submit" id="filtrarbtn" class="btn btn-primary mx-auto d-blockm"
+                data-bs-dismiss="modal">Filtrar</button>
+            </div>
+          </b-container>
+        </div>
+
+
+      </div>
+
+      <!--
+      <div id="right">
           <div id="tituloDive">
             <b-container>
               <table class="table">
@@ -51,8 +72,7 @@
             </b-container>
           </div>
         </div>
-      </div>
-
+      -->
       <div id="footer">
         <b-container>
           <Footer />
@@ -125,17 +145,6 @@ export default {
   padding-top: 2em;
 }
 
-#tituloDive {
-  padding-left: 5em;
-  padding-top: 2em;
-}
-
-#tituloDive {
-  padding-top: 2em;
-  padding-bottom: 2em;
-  padding-right: 5em;
-}
-
 #imgpoint {
   vertical-align: text-top;
 }
@@ -153,11 +162,29 @@ export default {
   vertical-align: super;
 }
 
-#mapa {
-  padding-top: 2em;
-  padding-bottom: 2em;
-  padding-right: 5em;
-  width: 100%;
+#painelFilters {
+  background-color: #95C697;
+  border-radius: 5px;
+  width: 350px;
+  height: 450px;
+  font-family: 'Keedy Sans';
+  color: #134C67;
+  font-size: 15px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#filterbox {
+  color: #F7F4F3;
+  text-align: center;
+}
+
+#filtrarbtn {
+  background-color: #134C67;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #footer {
