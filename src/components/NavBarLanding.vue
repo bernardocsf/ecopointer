@@ -108,7 +108,6 @@
 <script>
 import { toHandlers } from 'vue';
 import { userStore } from '../stores/Userstore';
-
 import { storeToRefs } from "pinia";
 
 export default {
@@ -118,6 +117,7 @@ export default {
       store
     };
   },
+ 
   beforeUpdate() {
     this.store.updateLocalStorage();
   },

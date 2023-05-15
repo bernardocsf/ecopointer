@@ -28,27 +28,6 @@
         </div>
 
         <div id="right">
-          <b-container>
-            <div id="painelFilters">
-              <select name="cars" id="cars">
-                <option value="volvo" disabled>Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
-              </select>
-              <p id="filterbox"><input type="checkbox"> Caminho mais rápido</p>
-              <p id="filterbox"><input type="checkbox"> Caminho mais curto</p>
-              <button type="submit" id="filtrarbtn" class="btn btn-primary mx-auto d-blockm"
-                data-bs-dismiss="modal">Filtrar</button>
-            </div>
-          </b-container>
-        </div>
-
-
-      </div>
-
-      <!--
-      <div id="right">
           <div id="tituloDive">
             <b-container>
               <table class="table">
@@ -72,7 +51,9 @@
             </b-container>
           </div>
         </div>
-      -->
+
+      </div>
+
       <div id="footer">
         <b-container>
           <Footer />
