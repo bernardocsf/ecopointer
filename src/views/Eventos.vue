@@ -60,7 +60,7 @@
                                         <p class="card-text"><button v-bind:disabled="isDisabled"
                                                 @click="store1.addGosto(evento), disableButton()"
                                                 style="border:none; background-color: #FFFFFF"><img
-                                                    src="src/assets/gosto.png" alt=""></button>
+                                                    src="../assets/gosto.png" alt=""></button>
                                             {{evento.gostos}}
                                         </p>
                                     </div>

@@ -39,7 +39,7 @@ export default {
 
 <style scoped>
 .landingPage {
-    background-image: url('src/assets/LandingPageBG2.png');
+    background-image: url('../assets/LandingPageBG2.webp');
     background-size: cover;
     height: 410vh;
     width: 100%;

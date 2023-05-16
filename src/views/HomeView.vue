@@ -56,14 +56,14 @@
                 <div id="d-flexCards" class="d-flex">
                   <div class="p-2">
                     <button v-bind:disabled="isDisabled" @click="store1.addGosto(evento), disableButton()"
-                      style="border:none; background-color: #FFFFFF"><img src="src/assets/gosto.png" alt=""></button>
+                      style="border:none; background-color: #FFFFFF"><img src="../assets/gosto.png" alt=""></button>
                     {{
                       evento.gostos
                     }}
                   </div>
                   <div class="p-2">
                     <button style="border:none; background-color: #FFFFFF"><a href="/eventos"><img
-                          src="src/assets/botaosabermais.svg"></a></button>
+                          src="../assets/botaosabermais.svg"></a></button>
                   </div>
                 </div>
               </div>
