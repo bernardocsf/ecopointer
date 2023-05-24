@@ -10,7 +10,7 @@
           <b-row>
             <b-col>
               <span id="titleUm">O teu mapa </span>
-              <span><img id="imgpoint" src="../assets/point.png"></span>
+              <span><img id="imgpoint" src="../assets/point.webp"></span>
               <span id="subTitleUm"> Filtra o mapa e encontra o ecoponto que procuras</span>
             </b-col>
           </b-row>

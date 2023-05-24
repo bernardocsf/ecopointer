@@ -9,7 +9,7 @@
           <b-row>
             <b-col>
               <span id="titleUm">Desafios da semana </span>
-              <img id="imgpoint" src="../assets/point.png">
+              <img id="imgpoint" src="../assets/point.webp">
               <span id="subTitleUm"> Novos desafios em menos de 72 horas</span>
             </b-col>
           </b-row>
@@ -38,7 +38,7 @@
           <b-row>
             <b-col>
               <span id="titleUm">Alguns eventos à tua espera </span>
-              <span><img id="imgpoint" src="../assets/point.png"></span>
+              <span><img id="imgpoint" src="../assets/point.webp"></span>
               <span id="subTitleUm"> Recicla em sociedade</span>
             </b-col>
           </b-row>
@@ -56,7 +56,7 @@
                 <div id="d-flexCards" class="d-flex">
                   <div class="p-2">
                     <button v-bind:disabled="isDisabled" @click="store1.addGosto(evento), disableButton()"
-                      style="border:none; background-color: #FFFFFF"><img src="../assets/gosto.png" alt=""></button>
+                      style="border:none; background-color: #FFFFFF"><img src="../assets/gosto.webp" alt=""></button>
                     {{
                       evento.gostos
                     }}
@@ -77,7 +77,7 @@
           <b-row>
             <b-col>
               <span id="titleUm">Explora o mapa </span>
-              <span><img id="imgpoint" src="../assets/point.png"></span>
+              <span><img id="imgpoint" src="../assets/point.webp"></span>
               <span id="subTitleUm"> Para explorar melhor o mapa, carrega no botão verde</span>
             </b-col>
           </b-row>
@@ -128,7 +128,7 @@
         <div id="right">
           <b-container>
             <div id="tableClass">
-              <img id="imgClassificacao" src="../assets/leaderboard.png">
+              <img id="imgClassificacao" src="../assets/leaderboard.webp">
             </div>
           </b-container>
         </div>
@@ -304,7 +304,7 @@ tr {
 }
 
 .progress-bar {
-  background-color: #43804B;
+  background-color: #95C697;
   height: 100%;
 }
 

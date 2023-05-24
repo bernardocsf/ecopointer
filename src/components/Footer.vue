@@ -4,7 +4,7 @@
         <div id="footer" class="d-flex">
 
             <div class="p-5">
-                <img src="../assets/logoFooter.png">
+                <img src="../assets/logoFooter.webp">
                 <p id="footerText">Esta aplicação é um projeto desenvolvido com o objetivo de aumentar a
                     aderência a
                     reciclagem e torna-la mais divertida. Queremos que se divirtam tanto como nós a reciclar

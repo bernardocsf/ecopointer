@@ -34,7 +34,7 @@
           <div class="d-flex">
             <div class="p-0">
               <div class="img-container">
-                <img src="../assets/fotologin.png" width="280" height="400">
+                <img src="../assets/fotologin.webp" width="280" height="400">
               </div>
             </div>
             <div class="p-2">
@@ -67,7 +67,7 @@
           <div class="d-flex">
             <div class="p-0">
               <div class="img-container">
-                <img src="../assets/fotologin.png" width="280" height="400">
+                <img src="../assets/fotologin.webp" width="280" height="400">
               </div>
             </div>
             <div class="p-2">

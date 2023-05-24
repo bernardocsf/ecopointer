@@ -13,7 +13,7 @@
               <table class="table">
                 <tbody >
                   <tr  id="rt">
-                    <td id="tdfotoPerfil"><img src="../assets/perfil.jpg" id="fotoPerfil" class="card-img-top"></td>
+                    <td id="tdfotoPerfil"><img src="../assets/perfil.webp" id="fotoPerfil" class="card-img-top"></td>
                   </tr>
                 
                   <tr v-if="number <= 0">

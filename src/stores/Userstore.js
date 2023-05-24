@@ -7,7 +7,7 @@ export const userStore = defineStore('userStore', {
       : [
         { id: 0, username: "bruno", name: "bruno", email: "alguem@gmail.com", cidade: "maia", password: '123456', confpassword: '123456', xps:500 },
         { id: 1, username: "bernardo", name: "bernardo", email: "alguem@gmail.com", cidade: "pombal", password: '123456',confpassword: '123456', xps:5000 },
-        { id: 2, username: "admin", name: "admin", email: "admin", cidade: "pombal", password: 'admin', confpassword: 'admin', xps:5000 }],
+        { id: 2, username: "admin", name: "admin", email: "admin", cidade: "pombal", password: 'admin', confpassword: 'admin', xps:6000 }],
   
         login: [
           {

@@ -9,7 +9,7 @@
          lng: ecoponto.longitude,
        },
        icon: {
-         url: '/src/assets/marker.png',
+         url: '/src/assets/marker.webp',
          scaledSize: { width: 29, height: 40 },
        },
       
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+
 import { defineComponent } from "vue";
 import { GoogleMap, Marker } from "vue3-google-map";
 import{ ecopontos} from "../stores/ecopointStore"
