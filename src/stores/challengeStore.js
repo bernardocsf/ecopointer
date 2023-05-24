@@ -5,10 +5,10 @@ export const challenges = defineStore('challengeStore', {
     desafios: localStorage.desafios ? JSON.parse(localStorage.desafios)
     :  
     [
-    {id:0, nome:"Concluir 3 streaks", percentagem: 50, xps: "+100XP"},
-    {id:1, nome:"Registar 3 ecoponto", percentagem: 80, xps: "+200XP"},
-    {id:2, nome:"Posts em 20 ecopontos diferentes", percentagem: 50, xps: "+300XP"},
-    {id:2, nome:"Participação em 5 eventos", percentagem: 30, xps: "+15XP"},
+    {id:0, nome:"Concluir 3 streaks", percentagem: 0, xps: "+100XP"},
+    {id:1, nome:"Registar 3 ecoponto", percentagem: 0, xps: "+200XP"},
+    {id:2, nome:"Posts em 20 ecopontos diferentes", percentagem: 0, xps: "+300XP"},
+    {id:2, nome:"Participação em 5 eventos", percentagem: 33, xps: "+15XP"},
     ]
   }),
   getters: {
