@@ -13,10 +13,6 @@
         <a class="nav-link" id="pills-contact-tab" data-toggle="pill" role="tab" aria-controls="pills-contact"
           aria-selected="false">Evento</a>
       </li>
-      <li class="nav-item me-auto">
-        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" role="tab" aria-controls="pills-contact"
-          aria-selected="false">Ajuda</a>
-      </li>
       <li class="nav-item">
         <a class="nav-link" data-toggle="pill" href="" role="tab" aria-controls="pills-contact" aria-selected="false"
           data-bs-toggle="modal" data-bs-target="#myModalRegisto">Sign Up</a>
