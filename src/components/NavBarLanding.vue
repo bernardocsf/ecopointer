@@ -9,7 +9,7 @@
         <a class="nav-link" id="pills-profile-tab" data-toggle="pill" role="tab"
           aria-controls="pills-profile" aria-selected="false">Mapa</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item me-auto">
         <a class="nav-link" id="pills-contact-tab" data-toggle="pill" role="tab" aria-controls="pills-contact"
           aria-selected="false">Evento</a>
       </li>
