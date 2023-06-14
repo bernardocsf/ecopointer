@@ -23,7 +23,7 @@
                             <div class="text-container">
                                 <div class="d-flex">
                                     <div class="p-2">
-                                        <input v-model="titulo" type="text" class="form-control"
+                                        <input v-model="nome" type="text" class="form-control"
                                             placeholder="titulo"><br>
                                         <input v-model="descricao" type="text" class="form-control"
                                             placeholder="descricao"><br>
@@ -50,13 +50,13 @@
             <div id="cards">
                 <b-container>
                     <div class="card-container">
-                        <div @load="store1.updateLocalStorage()" v-for="evento in store1.eventos" class="p-2"
+                        <div @load="store1.updateLocalStorage()" v-for="evento in store1.orderByGostos" class="p-2"
                             :key="evento.id">
                             <div class="card">
                                 <div class="card-left">
                                     <div class="card-body">
                                         <h5 class="card-title">{{ evento.nome }}</h5><br>
-                                        <p id="cardDesc" class="card-text">{{ evento.descriçao }}</p><br>
+                                        <p id="cardDesc" class="card-text">{{ evento.descricao }}</p><br>
                                         <p class="card-text"><button v-bind:disabled="isDisabled"
                                                 @click="store1.addGosto(evento), disableButton()"
                                                 style="border:none; background-color: #FFFFFF"><img
@@ -85,12 +85,25 @@
 
 
 <script>
+class Evento {
+  constructor(nome,descricao,IDcidade,data, imagem,email,user) {
+    this.nome = nome;
+    this.descricao = descricao;
+    this.cidade= IDcidade;
+    this.data= data;
+    this.email = email;
+    this.imagem = imagem;
+    this.user = user;
+    
+  }
+}
 import { toHandlers } from 'vue';
 import { eventos } from '../stores/eventStore';
 import Navbar from '../components/NavBar.vue';
 import Footer from '../components/Footer.vue';
 
 import { storeToRefs } from "pinia";
+import { handle } from 'express/lib/application';
 
 export default {
     data() {
@@ -110,10 +123,92 @@ export default {
         };
 
     },
+    data() {
+    return {
+      evento: new Evento("", "","","","","",""),
+      loading: false,
+      message: "",
+      errors: [],
+      successful: false,
+    };
+  },
+    
     methods: {
+        async getEventsList() {
+        
+        
+        
+        this.$data.loading= true
+      
+      
+      try {
+        await this.store1.getAllEvents();
+        console.log("AdminPage - GET USERS: " + this.store1.getEventos.length)
+        this.$data.eventos = this.store1.eventos;
+        console.log(this.eventos)
+      } catch (error) {
+         console.log(error);
+         this.$data.message =
+          (error.response && error.response.data) ||
+          error.message ||
+          error.toString();
+      } finally {
+        this.$data.loading = false;
+      }
+    },
+    async eventoAdd() {
+      this.$data.message = '';
+      this.$data.loading = true;
+      this.$data.successful = false;
+      this.$data.errors = [];
+
+      if (this.evento.nome && this.evento.cidade && this.evento.data && this.evento.descricao && this.evento.email && this.evento.imagem && this.evento.user)  {
+        try {
+          
+          
+          await this.store.register(this.user);
+          
+          this.$data.successful = true;
+        } catch (error) {
+          console.log(error);
+          this.$data.message =
+            (error.response && error.response.data) ||
+            error.message ||
+            error.toString();
+        } finally {
+          this.$data.loading = false;
+        }
+      } else {
+        this.$data.loading = false;
+        if (!this.user.username) {
+          this.errors.push('Username required.');
+        }
+        if (!this.user.password) {
+          this.errors.push('Password required.');
+          
+        }
+        if (!this.user.cidade) {
+          this.errors.push('Cidade required.');
+      }
+      if (!this.user.email) {
+          this.errors.push('Email required.');
+      }
+      if (!this.user.morada) {
+          this.errors.push('Morada required.');
+      }
+      if (!this.user.nome) {
+          this.errors.push('Nome required.');
+      }
+      
+    }
+  },
     disableButton() {
       this.isDisabled = true;
     }
+  },
+  mounted() {
+   
+    this.getEventsList();
   },
 };
 

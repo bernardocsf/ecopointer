@@ -1,48 +1,127 @@
 import { defineStore } from 'pinia';
-import{router} from '../router/index'
+import { router } from '../router/index';
+import { UserService } from '../services/user.service';
+import { AuthService } from '../services/authservice';
 
 export const userStore = defineStore('userStore', {
   state: () => ({
-    users: localStorage.users ? JSON.parse(localStorage.users)
+    users: localStorage.users
+      ? JSON.parse(localStorage.users)
       : [
-        { id: 0, username: "bruno", name: "bruno", email: "alguem@gmail.com", cidade: "maia", password: '123456', confpassword: '123456', xps:500 },
-        { id: 1, username: "bernardo", name: "bernardo", email: "alguem@gmail.com", cidade: "pombal", password: '123456',confpassword: '123456', xps:5000 },
-        { id: 2, username: "admin", name: "admin", email: "admin", cidade: "pombal", password: 'admin', confpassword: 'admin', xps:6000 }],
-  
-        login: [
-          {
-            bool: false,
-            nome: "",
-          },
-        ],    
+          { id: 0, username: "bruno", name: "bruno", email: "alguem@gmail.com", cidade: "maia", password: '123456', confpassword: '123456', xps: 500 },
+          { id: 1, username: "bernardo", name: "bernardo", email: "alguem@gmail.com", cidade: "pombal", password: '123456', confpassword: '123456', xps: 5000 },
+          { id: 2, username: "admin", name: "admin", email: "admin", cidade: "pombal", password: 'admin', confpassword: 'admin', xps: 6000 }
+        ],
+
+    message: "",
+    loggedIn: localStorage.getItem('login') === 'true',
+    loggedUser: localStorage.getItem('userLogin') || null
   }),
 
-  getters: {
-    userCount: function () {
-      return this.users.length
+  mutations: {
+    SET_MESSAGE(state, payload) {
+      state.message = payload;
     },
-    getUsers:  (state) => { return state.users},
-    getuserByid: (state) => (id) => state.users.find(user => user.id == id),
-    orderByXp: function() {
-      this.users = this.users.sort((a, b) => b.xps-a.xps);
-      return this.users
-    }
+    loginSuccess(state, payload) {
+      state.loggedIn = true;
+      state.loggedUser = payload;
+    },
+    loginFailure(state) {
+      state.loggedIn = false;
+      state.loggedUser = null;
+    },
+    logout(state) {
+      state.loggedIn = false;
+      state.loggedUser = null;
+    },
+    SET_USERS(state, payload) {
+      console.log("STORE MUTATION SET_USERS: " + payload.length);
+      state.users = payload;
+    },
   },
-  
+
+  getters: {
+    getMessage: (state) => state.message,
+    getUsers: (state) => state.users,
+    userCount(state) {
+      return state.users.length;
+    },
+    getUserById: (state) => (id) => state.users.find((user) => user.id == id),
+    orderByXp(state) {
+      return state.users.users.sort((a, b) => b.xp - a.xp);
+    },
+    
+        getLoggedIn: (state) => state.loggedIn,
+        getLoggedUser: (state) => state.loggedUser,
+        
+  },
+
   actions: {
+    async register(user) {
+      try {
+        console.log( user)
+        const response = await AuthService.register(user);
+        this.setMessage(response.message);
+      } catch (error) {
+        console.log('STORE REGISTER FAILS');
+        console.log(error);
+        throw error;
+      }
+    },
+    async login(user) {
+      try {
+        const loggedUser = await AuthService.login(user);
+        this.loginSuccess(loggedUser);
+
+        // if successful login, navigate to pages corresponding to logged user role
+        if (this.loggedUser.role === "ADMIN") {
+          router.push("/admin");
+        } else {
+          router.push("/home");
+        }
+      } catch (error) {
+        this.loginFailure();
+        throw error;
+      }
+    },
+    logout() {
+      AuthService.logout();
+      this.logoutAction();
+      router.push("/login");
+    },
+
+    async getAllUsers() {
+      try {
+        const users = await UserService.fetchAllUsers();
+        this.setUsers(users);
+        this.updateLocalStorage()
+      } catch (error) {
+        this.setUsers([]);
+        this.setMessage(error);
+        throw error;
+      }
+    },
+
     updateLocalStorage() {
       localStorage.setItem('users', JSON.stringify(this.users));
     },
     addUser(username, name, email, cidade, password, confpassword) {
-      if(username == "" || name == "" || email == "" || cidade == "" || password == "" || confpassword == ""){
-        alert("Preencha todos os campos")
-        return
+      if (
+        username === "" ||
+        name === "" ||
+        email === "" ||
+        cidade === "" ||
+        password === "" ||
+        confpassword === ""
+      ) {
+        alert("Preencha todos os campos");
+        return;
       }
-      if(password != confpassword){
-        alert("As passwords não coincidem")
-        return
+      if (password !== confpassword) {
+        alert("As senhas não coincidem");
+        return;
       }
-      if (this.users.find((user) => user.username == username)) {
+      if (this.users.find((user) => user.username === username)) {
         alert("Username já existe");
         return;
       }
@@ -54,72 +133,50 @@ export const userStore = defineStore('userStore', {
         cidade: cidade,
         password: password,
         confpassword: confpassword,
-        xps:0
+        xps: 0
       });
-    
-      this.updateLocalStorage()
-      updateLocalStorage();
+
+      this.updateLocalStorage();
       localStorage.setItem("userLogado", username);
       localStorage.setItem("logado", true);
-      this.login = {
+      this.loggedIn = true;
+      this.loggedUser = {
         bool: true,
-        nome: username,
+        nome: username
       };
     },
-    login(username, password) {
-      if(username=="admin" ){
-        if(password=="admin"){
-          router.push('/admin'); 
-          return 
-      }}
-      if (this.users.find((user) => user.username == username)) {
-        if (this.users.find((user) => user.password == password)) {
-          localStorage.setItem("userLogado", username);
-          localStorage.setItem("logado", true);
-          this.login = { 
-            bool: true, 
-            nome: username 
-          };
-          alert("Login efetuado com sucesso")
-          router.push('/home') 
-        }
-      }
-    },
-    eliminarUser(user){
+    eliminarUser(user) {
       this.users.splice(user, 1);
-      this.updateLocalStorage()
+      this.updateLocalStorage();
     },
     terminarSessao() {
       localStorage.setItem("logado", false);
-      this.login = {
+      this.loggedIn = false;
+      this.loggedUser = {
         bool: false,
         nome: "",
       };
-      router.push('/login')
+      router.push('/login');
     },
-  },
-  created () {
-      if (localStorage.getItem("login") == "true") {
-        this.login = {
-          bool: true,
-          nome: localStorage.getItem("userLogin"),
-        };
-      } else {
-        this.login = {
-          bool: false,
-          nome: "",
-        };
-      }
-      if (localStorage.getItem("login") == "false") {
-        this.login = {
-          bool: false,
-          nome: "",
-        };
-      } else {
-        this.login = {
-          bool: true,
-          nome: localStorage.getItem("userLogin"),
-        };
-      }
+
+    setMessage(payload) {
+      this.message = payload;
     },
-  })
+    loginSuccess(payload) {
+      this.loggedIn = true;
+      this.loggedUser = payload;
+    },
+    loginFailure() {
+      this.loggedIn = false;
+      this.loggedUser = null;
+    },
+    logoutAction() {
+      this.loggedIn = false;
+      this.loggedUser = null;
+    },
+    setUsers(payload) {
+      console.log("STORE MUTATION SET_USERS: " + payload.length);
+      this.users = payload;
+    },
+  }
+});

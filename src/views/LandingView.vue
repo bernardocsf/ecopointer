@@ -10,6 +10,7 @@
             </b-container>
         </b-container>
         <b-container fluid>
+
             <h1 id="titulo1">Uma nova forma de reciclar...</h1>
             <p id="desc1">Com a EcoPointer, reciclar tornou-se muito mais interativo! Compartilha a tua contribuição para melhorar o nosso planeta, enquanto podes ganhar prémios e recompensas pelo caminho!</p>
         </b-container>
@@ -28,13 +29,60 @@
 <script>
 import NavbarLanding from '../components/NavBarLanding.vue'
 import FooterLanding from '../components/FooterLanding.vue';
+import { mapGetters } from 'pinia';
+import { userStore } from '../stores/Userstore';
+
 
 export default {
     components: {
         NavbarLanding,
-        FooterLanding
+        FooterLanding,
+    
+  
     },
-}
+    setup() {
+        const store1 = userStore();
+        return {
+            store1,
+        };
+    },
+    data() {
+    return {
+      message: "",
+      loading: false,
+      users:"resr",
+    };
+  },
+    
+    
+    methods: {
+    async getUsersList() {
+        
+        
+        
+        this.$data.loading= true
+      
+      // console.log("AdminPage - GET USERS started...");
+      try {
+        await this.store1.getAllUsers();
+         console.log("AdminPage - GET USERS: " + this.store1.getUsers.length);
+        this.$data.users = this.store1.getUsers;
+      } catch (error) {
+         console.log(error);
+         this.$data.message =
+          (error.response && error.response.data) ||
+          error.message ||
+          error.toString();
+      } finally {
+        this.$data.loading = false;
+      }
+    },
+  },
+   mounted() {
+     this.getUsersList();
+   },
+ } 
+
 </script>
 
 <style scoped>

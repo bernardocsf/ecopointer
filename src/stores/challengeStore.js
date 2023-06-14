@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { ChallengeService } from '../services/challenges.service';
 
 export const challenges = defineStore('challengeStore', {
   state: () => ({
@@ -14,8 +15,29 @@ export const challenges = defineStore('challengeStore', {
   getters: {
     getDesafios: (state) => { return state.desafios},
 },
+mutations: {
+  SET_MESSAGE(state, payload) {
+    state.message = payload;
+  },
+  
+  SET_Challenges(state, payload) {
+    console.log("STORE MUTATION Set_Challenges: " + payload.length);
+    state.desafios = payload;
+  },
+},
 
   actions: {
+    async getAllChallenges() {
+      try {
+        const challenges = await ChallengeService.fetchAllChallenges();
+        this.setChallenges(challenges);
+        this.updateLocalStorage()
+      } catch (error) {
+        this.setChallenges([]);
+        this.setMessage(error);
+        throw error;
+      }
+    },
     updateLocalStorage() {
       localStorage.setItem('desafios', JSON.stringify(this.desafios));
     },
@@ -38,7 +60,16 @@ export const challenges = defineStore('challengeStore', {
     this.updateLocalStorage()
 
 
-  }
+  },
+  setMessage(payload) {
+    this.message = payload;
+  },
+
+  setChallenges(payload) {
+    console.log("STORE MUTATION SET_USERS: " + payload.length);
+    this.desafios = payload;
+  },
+  
 
 
 

@@ -38,20 +38,37 @@
               </div>
             </div>
             <div class="p-2">
+              
+          
               <div class="modal-header">
                 <h4 class="modal-title">Bem-vindo(a)</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
               </div>
               <div class="modal-body">
+                <div class="form-group">
+          <div 
+            v-if="message" 
+            class="alert alert-danger" 
+            role="alert">
+            {{ message }}
+          </div>
+        </div>
+   
+        <p v-if="errors.length">
+          <b>Please correct the following error(s):</b>
+          <ul>
+            <li v-for="(error, index)  in errors" :key="index">{{ error }}</li>
+          </ul>
+        </p>
                 <div class="text-container">
-                  <input v-model="username1" type="text" class="form-control" placeholder="username">
+                  <input v-model="user.username" type="text" class="form-control" placeholder="username">
                   <br>
-                  <input v-model="password" type="password" class="form-control" placeholder="password">
+                  <input v-model="user.password" type="password" class="form-control" placeholder="password">
                   <br>
                   <p id="changeModal">Não tens conta? <a href="" data-bs-toggle="modal"
                       data-bs-target="#myModalRegisto">Regista-te</a> aqui</p>
                   <br>
-                  <button @click="store.login(username1, password)" type="submit" id="isButton" class="btn btn-primary"
+                  <button @click="handleLogin" type="submit" id="isButton" class="btn btn-primary" 
                     data-bs-dismiss="modal">Iniciar Sessão</button>
                 </div>
               </div>
@@ -79,19 +96,38 @@
                 <div class="text-container">
                   <div class="d-flex">
                     <div class="p-2">
-                      <input v-model="username" type="text" class="form-control" placeholder="username"><br>
-                      <input v-model="email" type="text" id="emailR" class="form-control" placeholder="email"><br>
-                      <input v-model="password" type="password" class="form-control" placeholder="password"><br>
+                      <div
+        v-if="message"
+        class="alert"
+        :class="successful ? 'alert-success' : 'alert-danger'"
+      >
+        {{ message }}
+       
+        
+      </div>
+      <div
+        v-if="errors.length>0"
+        class="alert"
+        :class="successful ? 'alert-success' : 'alert-danger'"
+      >
+        {{ errors }}
+       
+        
+      </div>
+      
+                      <input v-model="user.username" type="text" class="form-control" placeholder="username"><br>
+                      <input v-model="user.email" type="text" id="emailR" class="form-control" placeholder="email"><br>
+                      <input v-model="user.password" type="password" class="form-control" placeholder="password"><br>
                     </div>
                     <div class="p-2">
-                      <input v-model="name" type="text" class="form-control" placeholder="name"><br>
-                      <input v-model="cidade" type="text" id="cidadeR" class="form-control" placeholder="cidade"><br>
-                      <input v-model="passwordConfir" type="password" class="form-control"
+                      <input v-model="user.nome" type="text" class="form-control" placeholder="name"><br>
+                      <input v-model="user.cidade" type="text" id="cidadeR" class="form-control" placeholder="cidade"><br>
+                      <input v-model="user.morada" type="password" class="form-control"
                         placeholder="confpassword"><br>
                     </div>
                   </div>
                 </div>
-                <button @click="store.addUser(username, name, email, cidade, password, passwordConfir)" type="submit" id="rsButton"
+                <button @click="handleRegister()" type="submit" id="rsButton"
                   class="btn btn-primary mx-auto d-blockm" data-bs-dismiss="modal">Criar
                   conta</button>
               </div>
@@ -106,9 +142,21 @@
 
 
 <script>
+class User {
+  constructor(username,nome,IDcidade,morada,tipoUSer,email, password,) {
+    this.username = username;
+    this.nome = nome;
+    this.cidade= IDcidade;
+    this.morada= morada;
+    this.email = email;
+    this.tipoUSer = tipoUSer;
+    this.password = password;
+  }
+}
 import { toHandlers } from 'vue';
 import { userStore } from '../stores/Userstore';
 import { storeToRefs } from "pinia";
+import { router } from '../router/index';
 
 export default {
   setup() {
@@ -117,6 +165,106 @@ export default {
       store
     };
   },
+  data() {
+    return {
+      user: new User("", "","","","user","",""),
+      loading: false,
+      message: "",
+      errors: [],
+      successful: false,
+    };
+  },
+  methods: {
+    
+    async handleLogin() {
+  const store = userStore();
+  
+  this.$data.loading = true;
+  this.$data.errors = [];
+  if (this.user.username && this.user.password) {
+    console.log(this.user);
+    // makes request by dispatching an action
+    try {
+      await store.login(this.user);
+      console.log(this.user);
+
+      console.log("LOGIN: AFTER AWAIT: " + this.getLoggedIn);
+
+      // if successful login, navigate to pages corresponding to logged user role
+      if (store.getLoggedUser.role == "ADMIN")
+        router.push("/admin");
+      else 
+        router.push("/home");
+    } catch (error) {
+      // console.log("LOGIN: ERROR: " + this.getLoggedIn);
+      this.$data.message =
+        (error.response && error.response.data) ||
+        error.message ||
+        error.toString();
+    } finally {
+      this.$data.loading = false;
+    }
+  } else {
+    this.$data.loading = false;
+    if (!this.user.username) {
+      this.errors.push("Username required.");
+      console.log(this.errors);
+    }
+    if (!this.user.password) {
+      this.errors.push("Password required.");
+      console.log(this.errors);
+    }
+  }
+},
+async handleRegister() {
+      this.$data.message = '';
+      this.$data.loading = true;
+      this.$data.successful = false;
+      this.$data.errors = [];
+
+      if (this.user.username && this.user.password && this.user.cidade && this.user.email && this.user.morada && this.user.nome)  {
+        try {
+          
+          
+          await this.store.register(this.user);
+          
+          this.$data.successful = true;
+        } catch (error) {
+          console.log(error);
+          this.$data.message =
+            (error.response && error.response.data) ||
+            error.message ||
+            error.toString();
+        } finally {
+          this.$data.loading = false;
+        }
+      } else {
+        this.$data.loading = false;
+        if (!this.user.username) {
+          this.errors.push('Username required.');
+        }
+        if (!this.user.password) {
+          this.errors.push('Password required.');
+          
+        }
+        if (!this.user.cidade) {
+          this.errors.push('Cidade required.');
+      }
+      if (!this.user.email) {
+          this.errors.push('Email required.');
+      }
+      if (!this.user.morada) {
+          this.errors.push('Morada required.');
+      }
+      if (!this.user.nome) {
+          this.errors.push('Nome required.');
+      }
+      
+    }
+  },
+
+  },
+  
  
   beforeUpdate() {
     this.store.updateLocalStorage();

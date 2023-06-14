@@ -1,4 +1,6 @@
 import { defineStore } from 'pinia'
+const API_URL = "http://127.0.0.1:3000/"
+import { EventService } from '../services/events.service';
 
 export const eventos = defineStore('eventStore', {
   state: () => ({
@@ -17,17 +19,27 @@ export const eventos = defineStore('eventStore', {
       return state.eventos;
 
     },
+    // orderByGostos(state) {
+    //   return state.eventos.Evento.sort((a, b) => b.gostos - a.gostos);
+    // },
     getEventoByid: (state) => (id) => state.eventos.find(evento => evento.id == id),
-    orderByGostos: function() {
-  
-      this.eventos = this.eventos.sort((a, b) => b.gostos-a.gostos);
-      return this.eventos
-   
-   },
+    
   },
 
   actions: 
   {
+    async getAllEvents() {
+      try {
+        const events = await EventService.fetchAllEvents();
+        this.setEvents(events);
+        this.updateLocalStorage()
+      } catch (error) {
+        this.setEvent([]);
+        this.setMessage(error);
+        throw error;
+      }
+    },
+   
     updateLocalStorage() {
       localStorage.setItem('eventos', JSON.stringify(this.eventos));
     },
@@ -71,7 +83,15 @@ export const eventos = defineStore('eventStore', {
     return this.eventos
 
     
-  }
+  },
+  setMessage(payload) {
+    this.message = payload;
+  },
+
+  setEvents(payload) {
+    console.log("STORE MUTATION SET_USERS: " + payload.length);
+    this.eventos = payload;
+  },
     
    
     
