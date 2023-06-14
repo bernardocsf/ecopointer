@@ -8,6 +8,7 @@
         <b-container>
           <b-row>
             <b-col>
+              
               <span id="titleUm">Desafios da semana </span>
               <img id="imgpoint" src="../assets/point.webp" />
               <span id="subTitleUm"> Novos desafios em menos de 72 horas</span>
@@ -52,8 +53,8 @@
           </b-row>
         </b-container>
       </div>
-     
-      <!-- <b-container>
+      <b-container>
+        
         <div id="cardGroups" class="d-flex">
           <div
             @load="store1.updateLocalStorage()"
@@ -76,7 +77,7 @@
                   <div class="p-2">
                     <button
                       v-bind:disabled="isDisabled"
-                      @click="store1.addGosto(evento), disableButton()"
+                      @click="updtateEventBy(evento._id, evento)"
                       style="border: none; background-color: #ffffff"
                     >
                       <img src="../assets/gosto.webp" alt="" />
@@ -95,13 +96,12 @@
             </div>
           </div>
         </div>
-      </b-container> -->
+      </b-container>
 
       <div id="tituloDiv">
         <b-container>
           <b-row>
             <b-col>
-              <h1>teste</h1>
               <span id="titleUm">Explora o mapa </span>
               <span><img id="imgpoint" src="../assets/point.webp" /></span>
               <span id="subTitleUm">
@@ -133,15 +133,7 @@
                       <div class="p-2">
                         <a id="btnMensal" class="btn btn-primary">Mensal</a>
                       </div>
-                      <div class="p-2">
-                        <button
-                          id="btnGlobal"
-                          type="button"
-                          class="btn btn-primary"
-                        >
-                          Global
-                        </button>
-                      </div>
+
                     </div>
                   </b-col>
                 </b-row>
@@ -283,6 +275,25 @@ export default {
         this.$data.loading = false;
       }
     },
+    async updtateEventBy(id, evento) {
+      this.$data.loading = true;
+
+      // console.log("AdminPage - GET USERS started...");
+      try {
+        await this.store1.updateEvento(id, evento);
+        console.log("AdminPage - GET USERS: " + this.store1.getAllEvents.length);
+        this.$data.eventos = this.store1.eventos;
+      } catch (error) {
+        console.log(error);
+        this.$data.message =
+          (error.response && error.response.data) ||
+          error.message ||
+          error.toString();
+      } finally {
+        this.$data.loading = false;
+      }
+    },
+
   },
 
   mounted() {

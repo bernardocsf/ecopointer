@@ -66,6 +66,24 @@ export const UserService = {
         }
             
     },
+      async deleteUserByID(id) {
+        const response = await fetch(`${API_URL}/Ecopointer/users/user/${id}`, {
+            method: "DELETE",
+            headers: authHeader()
+         });
+         if (response.ok) {
+           let data = await response.json();
+             console.log("USER SERVICE - fetch 1 USER")
+             console.log(data)
+             return data;
+         }
+         else
+         {
+             console.log("USER SERVICE - fetch 1 USER")
+             console.log(response)
+            throw Error(handleResponses(response.status));
+         }
+     },
 
     // sends request to API root
     async getPublicContent() {

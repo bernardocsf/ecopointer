@@ -29,16 +29,12 @@
 <script>
 import NavbarLanding from '../components/NavBarLanding.vue'
 import FooterLanding from '../components/FooterLanding.vue';
-import { mapGetters } from 'pinia';
 import { userStore } from '../stores/Userstore';
-
 
 export default {
     components: {
         NavbarLanding,
         FooterLanding,
-    
-  
     },
     setup() {
         const store1 = userStore();
@@ -53,16 +49,9 @@ export default {
       users:"resr",
     };
   },
-    
-    
     methods: {
     async getUsersList() {
-        
-        
-        
         this.$data.loading= true
-      
-      // console.log("AdminPage - GET USERS started...");
       try {
         await this.store1.getAllUsers();
          console.log("AdminPage - GET USERS: " + this.store1.getUsers.length);
@@ -82,7 +71,6 @@ export default {
      this.getUsersList();
    },
  } 
-
 </script>
 
 <style scoped>

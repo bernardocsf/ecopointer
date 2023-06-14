@@ -6,18 +6,23 @@
       </b-container>
 
       <div id="container">
-
         <div id="left">
           <b-container>
             <div id="tablePerfil">
               <table class="table">
-                <tbody >
-                  <tr  id="rt">
-                    <td id="tdfotoPerfil"><img src="../assets/perfil.webp" id="fotoPerfil" class="card-img-top"></td>
+                <tbody>
+                  <tr id="rt">
+                    <td id="tdfotoPerfil">
+                      <img
+                        src="../assets/perfil.webp"
+                        id="fotoPerfil"
+                        class="card-img-top"
+                      />
+                    </td>
                   </tr>
-                
+
                   <tr v-if="number <= 0">
-                    <td id="tdusernamePerfil">@{{ nome }}</td>
+                    <td id="tdusernamePerfil">@{{ response.user }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -27,29 +32,13 @@
 
         <div id="right">
           <b-container>
-            <div id="tableNivel">
-              <table class="table">
-                <tbody v-for="(user, number) in store2.orderByXp " :key="number">
-                  <tr v-if="number <= 0" id="rt">
-                    <div class="progress">
-                      <div class="progress-bar" role="progressbar" style="width: 60%;" aria-valuenow="25"
-                        aria-valuemin="0" aria-valuemax="100">60%</div>
-                    </div>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </b-container>
-
-
-          <b-container>
             <div id="tableClass">
               <table class="table">
-                <tbody v-for="(user, number) in store2.orderByXp " :key="number">
+                <tbody v-for="(user, number) in store2.orderByXp" :key="number">
                   <tr v-if="number <= 4" id="rt">
-                    <td id="tdnumClassificacao">{{ number+ 1 }}o</td>
-                    <td id="tdnameClassificacao">{{ user.name }}</td>
-                    <td id="tdxpsClassificacao">{{ user.xps }}</td>
+                    <td id="tdnumClassificacao">{{ number + 1 }}o</td>
+                    <td id="tdnameClassificacao">{{ user.nome }}</td>
+                    <td id="tdxpsClassificacao">{{ user.xp }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -57,7 +46,6 @@
           </b-container>
         </div>
       </div>
-
 
       <div id="tituloDiv">
         <b-container>
@@ -69,12 +57,33 @@
           <b-row>
             <b-col>
               <div class="d-flex">
-                <div class="p-2"><a id="btnMensal" class="btn btn-primary">Posts</a></div>
-                <div class="p-2"><button id="btnGlobal" type="button" class="btn btn-primary">Eventos</button></div>
+                <div class="p-2">
+                  <a id="btnMensal" class="btn btn-primary">Posts</a>
+                </div>
               </div>
-              <div class="d-flex">
-                <div class="p-2"><a id="btnMensal" class="btn btn-primary">Publicadas</a></div>
-                <div class="p-2"><button id="btnGlobal" type="button" class="btn btn-primary">Em suspenso</button></div>
+              <div id="cardGroups" class="d-flex flex-wrap">
+                <div    v-for="(ecoponto, number) in store3.getBins"
+                    
+                    :key="number" id="cardGroups" >
+                  <div v-if="response && response.id === ecoponto.user"
+                    
+                  >
+                    <div class="p-1"
+                     >
+                      <div class="card">
+                        <img
+                          class="card-img-top"
+                          :src="ecoponto.imagem"
+                          alt="Card image cap"
+                        />
+                        <div class="card-body">
+                          <h5 class="card-title">{{ ecoponto.descricao }}</h5>
+                          <!-- Outros elementos do card -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </b-col>
           </b-row>
@@ -86,22 +95,21 @@
           <Footer />
         </b-container>
       </div>
-
     </b-container>
   </div>
 </template>
 
-
 <script>
-import { toHandlers } from 'vue';
-import { challenges } from '../stores/challengeStore';
-import { eventos } from '../stores/eventStore';
+import { toHandlers } from "vue";
+import { challenges } from "../stores/challengeStore";
+import { ecopontos } from "../stores/ecopointStore";
+import { eventos } from "../stores/eventStore";
 import { GoogleMap, Marker } from "vue3-google-map";
-import { userStore } from "../stores/Userstore"
-import Mapa from "../components/MapaHome.vue"
-import Footer from '../components/Footer.vue';
+import { userStore } from "../stores/Userstore";
+import Mapa from "../components/MapaHome.vue";
+import Footer from "../components/Footer.vue";
 
-import Navbar from '../components/NavBar.vue'
+import Navbar from "../components/NavBar.vue";
 
 import { storeToRefs } from "pinia";
 
@@ -110,9 +118,14 @@ export default {
     return {
       number: 0,
       isDisabled: false,
-      nome: localStorage.getItem("userLogado"),
-    }
-
+      message: "",
+      loading: false,
+      users: localStorage.users,
+      desafios: localStorage.desafios,
+      eventos: localStorage.eventos,
+      ecopontos: localStorage.ecopontos,
+      response: JSON.parse(localStorage.getItem("user")),
+    };
   },
   components: {
     Navbar,
@@ -124,34 +137,50 @@ export default {
 
     const store1 = eventos();
     const store2 = userStore();
-    store1.updateLocalStorage()
+    store1.updateLocalStorage();
+    const store3 = ecopontos();
 
     // storeToRefs lets todoList keep reactivity
 
     return {
       store,
       store1,
-      store2
-
+      store2,
+      store3,
     };
-
   },
   methods: {
     disableButton() {
       this.isDisabled = true;
-    }
+    },
+    async getBinsList() {
+      this.$data.loading = true;
+
+      try {
+        await this.store3.getAllBins();
+        console.log(" - GET Bins: " + this.store3.getBins);
+        this.$data.ecopontos = this.store3.ecopontos;
+        console.log(this.ecopontos);
+      } catch (error) {
+        console.log(error);
+        this.$data.message =
+          (error.response && error.response.data) ||
+          error.message ||
+          error.toString();
+      } finally {
+        this.$data.loading = false;
+      }
+    },
   },
-  
-
-
-}
-
+  created() {
+    this.getBinsList();
+  },
+};
 </script>
-
 
 <style scoped>
 .perfilPage {
-  background-color: #C6DDC5;
+  background-color: #c6ddc5;
 }
 
 #container {
@@ -179,13 +208,13 @@ export default {
 #titleUm {
   font-family: "Keedy Sans";
   font-size: 45px;
-  color: #134C67;
+  color: #134c67;
 }
 
 #subTitleUm {
   font-family: "Keedy Sans";
   font-size: 20px;
-  color: #134C67;
+  color: #134c67;
   vertical-align: super;
 }
 
@@ -197,12 +226,12 @@ export default {
 }
 
 tr {
-  border-bottom: 5px solid #C6DDC5;
+  border-bottom: 5px solid #c6ddc5;
   font-size: 20px;
 }
 
 #fotoPerfil {
-  background-color: #C6DDC5;
+  background-color: #c6ddc5;
   display: block;
   margin: auto;
   width: 40%;
@@ -210,20 +239,20 @@ tr {
 }
 
 #tdfotoPerfil {
-  background-color: #C6DDC5;
+  background-color: #c6ddc5;
 }
 
 #tdnamePerfil {
   width: 30%;
   color: #134c67;
-  background-color: #C6DDC5;
+  background-color: #c6ddc5;
   text-align: center;
 }
 
 #tdusernamePerfil {
   width: 30%;
   color: #134c67;
-  background-color: #C6DDC5;
+  background-color: #c6ddc5;
   text-align: center;
 }
 
@@ -236,31 +265,31 @@ tr {
 
 #tdnumClassificacao {
   width: 10%;
-  color: #F7F4F3;
-  background-color: #95C697;
+  color: #f7f4f3;
+  background-color: #95c697;
   text-align: center;
 }
 
 #tdnameClassificacao {
   width: 30%;
-  color: #95C697;
-  background-color: #F7F4F3;
+  color: #95c697;
+  background-color: #f7f4f3;
 }
 
 #tdxpsClassificacao {
   width: 20%;
   font-size: 24px;
-  color: #59985F;
-  background-color: #F7F4F3;
+  color: #59985f;
+  background-color: #f7f4f3;
   text-align: right;
 }
 
 #progressBarId {
   display: block;
-  margin: auto
+  margin: auto;
 }
 
-#tableNivel{
+#tableNivel {
   padding-left: 5em;
   padding-right: 5em;
   font-family: "Keedy Sans";
@@ -271,18 +300,15 @@ tr {
   font-size: 17px;
   --bs-progress-height: 3rem;
   --bs-progress-font-size: 1rem;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   display: flex;
   overflow: hidden;
 }
 
 .progress-bar {
-  background-color: #43804B;
+  background-color: #43804b;
   height: 100%;
 }
-
-
-
 
 #btnsDiv {
   font-family: "Keedy Sans";
@@ -294,24 +320,23 @@ tr {
 
 #btnMensal {
   font-size: 20px;
-  background-color: #134C67;
-  border-color: #134C67;
-  border-width: 3px
+  background-color: #134c67;
+  border-color: #134c67;
+  border-width: 3px;
 }
 
 #btnGlobal {
   font-size: 20px;
-  color: #134C67;
-  border-color: #134C67;
-  background-color: #C6DDC5;
+  color: #134c67;
+  border-color: #134c67;
+  background-color: #c6ddc5;
   border-width: 3px;
 }
 
 #btnGlobal:hover {
-  color: #F7F4F3;
+  color: #f7f4f3;
   background-color: #134c67;
 }
-
 
 #footer {
   display: block;

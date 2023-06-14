@@ -13,7 +13,7 @@ export const challenges = defineStore('challengeStore', {
     ]
   }),
   getters: {
-    getDesafios: (state) => { return state.desafios},
+    getDesafios: (state) => { return state.desafios.data},
 },
 mutations: {
   SET_MESSAGE(state, payload) {
@@ -38,6 +38,26 @@ mutations: {
         throw error;
       }
     },
+    async deleteDesafio(id) {
+      try {
+         
+         
+          console.log(id)
+          const deleteDesafio = await ChallengeService.deleteChallengeByID(id);
+         console.log('Delete evento ')
+        console.log(deleteDesafio)
+          // commit('SET_USERS', users);
+          //return Promise.resolve(users);
+  }
+      catch(error)
+      {
+        // console.log('STORE listUsers: ' + error);
+          this.setEvents( []);
+         this.setMessage(error);
+         throw error; // Needed to continue propagating the error
+        //return Promise.reject(error);
+     }
+  },
     updateLocalStorage() {
       localStorage.setItem('desafios', JSON.stringify(this.desafios));
     },

@@ -10,8 +10,8 @@
           <b-row>
             <b-col>
               <span id="titleUm">O teu mapa </span>
-              <span><img id="imgpoint" src="../assets/point.webp"></span>
-              <span id="subTitleUm"> Filtra o mapa e encontra o ecoponto que procuras</span>
+              <span><img id="imgpoint" src="../assets/point.webp" /></span>
+              <span id="subTitleUm">Filtra o mapa e encontra o ecoponto que procuras</span>
             </b-col>
           </b-row>
         </b-container>
@@ -19,10 +19,9 @@
 
       <div id="container">
         <div id="left">
-
           <div id="mapa">
             <b-container>
-              <mapa />
+              <Mapa />
             </b-container>
           </div>
         </div>
@@ -33,25 +32,58 @@
               <table class="table">
                 <tbody>
                   <tr>
-                    <td><input v-model="nome" type="text" class="form-control" placeholder="nome"></td>
+                    <td>
+                      <input
+                        v-model="ecoponto.descricao"
+                        type="text"
+                        class="form-control"
+                        placeholder="Descrição"
+                      />
+                    </td>
                   </tr>
                   <tr>
-                    <td><input v-model="morada" type="text" class="form-control" placeholder="morada"></td>
+                    <td>
+                      <input
+                        v-model="ecoponto.localizacao.latitude"
+                        type="number"
+                        class="form-control"
+                        placeholder="Latitude"
+                      />
+                    </td>
                   </tr>
                   <tr>
-                    <td><input v-model="lat" type="number" class="form-control" placeholder="latitude"></td>
-                  </tr>
-                  <tr>
-                    <td><input v-model="lng" type="number" class="form-control" placeholder="longitude"></td>
+                    <td>
+                      <input
+                        v-model="ecoponto.localizacao.longitude"
+                        type="number"
+                        class="form-control"
+                        placeholder="Longitude"
+                      />
+                    </td>
                   </tr>
                 </tbody>
-                <button @click="store.addEcoponto(nome, morada, lat, lng)" type="submit" class="btn btn-primary"
-                  data-bs-dismiss="modal">Adicionar</button>
+                <tr>
+                    <td>
+                      <input
+                        v-model="ecoponto.imagem"
+                        type="text"
+                        class="form-control"
+                        placeholder="Imagem"
+                      />
+                    </td>
+                  </tr>
               </table>
+              <button
+                @click="handleAddBin"
+                type="submit"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+              >
+                Adicionar
+              </button>
             </b-container>
           </div>
         </div>
-
       </div>
 
       <div id="footer">
@@ -59,44 +91,65 @@
           <Footer />
         </b-container>
       </div>
-
     </b-container>
   </div>
 </template>
 
-
 <script>
-import { toHandlers } from 'vue';
-import { ecopontos } from '../stores/ecopointStore';
-import Navbar from '../components/NavBar.vue'
-import Footer from '../components/Footer.vue';
-import Mapa from "../components/MapaHome.vue"
+import { ref } from 'vue';
+import { ecopontos } from "../stores/ecopointStore";
+import Navbar from "../components/NavBar.vue";
+import Footer from "../components/Footer.vue";
+import Mapa from "../components/MapaHome.vue";
 
-import { storeToRefs } from "pinia";
+class Bin {
+  constructor(descricao, localizacao, user,imagem) {
+    this.descricao = descricao;
+    this.localizacao = localizacao;
+    this.user = user;
+    this.imagem= imagem
+  }
+}
 
 export default {
-  data() {
-  },
   components: {
     Navbar,
     Mapa,
-    Footer
+    Footer,
   },
   setup() {
+    const ecoponto = ref(new Bin("", { latitude: 0, longitude: 0 }, "user"));
     const store = ecopontos();
-    // storeToRefs lets todoList keep reactivity
+
+    async function handleAddBin() {
+      ecoponto.value.localizacao.latitude = parseFloat(ecoponto.value.localizacao.latitude);
+      ecoponto.value.localizacao.longitude = parseFloat(ecoponto.value.localizacao.longitude);
+
+      if (ecoponto.value.descricao && ecoponto.value.localizacao.latitude && ecoponto.value.localizacao.longitude && ecoponto.value.imagem) {
+        try {
+          await store.add(ecoponto.value);
+          console.log("Ecoponto adicionado com sucesso");
+        } catch (error) {
+          console.log(error);
+          // Trate o erro adequadamente
+        }
+      } else {
+        console.log("Preencha todos os campos obrigatórios");
+      }
+    }
 
     return {
+      ecoponto,
+      handleAddBin,
       store,
     };
   },
 };
 </script>
 
-
 <style scoped>
 .mapaPage {
-  background-color: #C6DDC5;
+  background-color: #c6ddc5;
 }
 
 #container {
@@ -116,11 +169,6 @@ export default {
   width: 30%;
 }
 
-#d-flexCards {
-  justify-content: space-between;
-  align-items: center;
-}
-
 #tituloDiv {
   padding-left: 5em;
   padding-top: 2em;
@@ -133,39 +181,21 @@ export default {
 #titleUm {
   font-family: "Keedy Sans";
   font-size: 45px;
-  color: #134C67;
+  color: #134c67;
 }
 
 #subTitleUm {
   font-family: "Keedy Sans";
   font-size: 20px;
-  color: #134C67;
+  color: #134c67;
   vertical-align: super;
 }
 
-#painelFilters {
-  background-color: #95C697;
+#tituloDive {
+  background-color: #f5f5f5;
   border-radius: 5px;
-  width: 350px;
-  height: 450px;
-  font-family: 'Keedy Sans';
-  color: #134C67;
-  font-size: 15px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#filterbox {
-  color: #F7F4F3;
-  text-align: center;
-}
-
-#filtrarbtn {
-  background-color: #134C67;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+  padding: 1em;
+  margin-bottom: 1em;
 }
 
 #footer {

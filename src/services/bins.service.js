@@ -3,6 +3,7 @@
 //  GET /users -> get all users (ADMIN only)
 //  GET /users/{id} -> get 1 user (ADMIN or authenticated user)
 
+
 import API_URL from './config.js'
 
 function authHeader() {
@@ -25,7 +26,51 @@ function authHeader() {
 }
 
 
-export const ChallengeService = {
+export const BinsService = {
+    async addBin(ecoponto) {
+        console.log(ecoponto);
+        
+        const response = await fetch(`${API_URL}/Ecopointer/bins/bin`, {
+            
+            method: "POST",
+            headers: 
+                authHeader(),
+            body: JSON.stringify({
+                descricao: ecoponto.descricao,
+                localizacao:ecoponto.localizacao,
+                user: ecoponto.user,
+                imagem: ecoponto.imagem
+                
+            })
+        });
+        if (response.ok) {
+            const data = await response.json();
+            return data;
+        } else {
+            console.log(evento)
+            throw Error(handleResponses(response.status));
+            
+        }
+    },
+    async deleteBinByID(id) {
+        const response = await fetch(`${API_URL}/Ecopointer/bins/bin/${id}`, {
+            method: "DELETE",
+            headers: authHeader()
+         });
+         if (response.ok) {
+           let data = await response.json();
+             console.log("Delete bin ")
+             console.log(data)
+             return data;
+         }
+         else
+         {
+             console.log("Delete bins - error")
+             console.log(response)
+            throw Error(handleResponses(response.status));
+         }
+     },
+
      async fetchOneUserByID(id) {
          const response = await fetch(`${API_URL}/Ecopointer/users/user/${id}`, {
              method: "GET",
@@ -44,41 +89,23 @@ export const ChallengeService = {
              throw Error(handleResponses(response.status));
          }
      },
-     async deleteChallengeByID(id) {
-        const response = await fetch(`${API_URL}/Ecopointer/challenges/challenge/${id}`, {
-            method: "DELETE",
-            headers: authHeader()
-         });
-         if (response.ok) {
-           let data = await response.json();
-             console.log("Delete challenge ")
-             console.log(data)
-             return data;
-         }
-         else
-         {
-             console.log("Delete challenge - error")
-             console.log(response)
-            throw Error(handleResponses(response.status));
-         }
-     },
 
-    async fetchAllChallenges() {
+    async fetchAllBins() {
         // console.log(" USER SERVICE - fetch ALL USERS started...")
         // return axios.get(API_URL + 'admin', { headers: authHeader() });
-        const response = await fetch(`${API_URL}/Ecopointer/challenges/challenge`, {
+        const response = await fetch(`${API_URL}/Ecopointer/bins/bin`, {
             method: "GET",
             headers: authHeader()
         });
         if (response.ok) {
             let data = await response.json();
-             console.log("USER SERVICE - fetch ALL USERS")
+             console.log("BIN SERVICE - fetch ALL BINS")
              console.log(data)
             return data;
         }
         else
         {
-            console.log("USER SERVICE - fetch ALL USERS: ERROR ");
+            console.log("BIN SERVICE - fetch ALL BINS: ERROR ");
              console.log(response)
             throw Error(handleResponses(response.status));
         }
@@ -102,7 +129,7 @@ export const ChallengeService = {
     }
 }
 
-export default ChallengeService;
+export default BinsService;
 
 
 function handleResponses(code) {

@@ -3,7 +3,7 @@
 //  GET /users -> get all users (ADMIN only)
 //  GET /users/{id} -> get 1 user (ADMIN or authenticated user)
 
-import e from 'express';
+
 import API_URL from './config.js'
 
 function authHeader() {
@@ -28,20 +28,19 @@ function authHeader() {
 
 export const EventService = {
     async addEvento(evento) {
+        console.log(evento);
         
         const response = await fetch(`${API_URL}/Ecopointer/events/event`, {
             
             method: "POST",
-            headers: {
-                "Content-Type": "application/json;charset=utf-8"
-            },
+            headers: 
+                authHeader(),
             body: JSON.stringify({
                 nome: evento.nome,
                 descricao:evento.descricao,
-                IDcidade:evento.cidade,
+                cidade:evento.cidade,
                 data:evento.data,
                 imagem:evento.imagem ,
-                email: evento.email,
                 user: evento.user,
                 
             })
@@ -73,6 +72,48 @@ export const EventService = {
              throw Error(handleResponses(response.status));
          }
      },
+     async deleteEventByID(id) {
+        const response = await fetch(`${API_URL}/Ecopointer/events/event/${id}`, {
+            method: "DELETE",
+            headers: authHeader()
+         });
+         if (response.ok) {
+           let data = await response.json();
+             console.log("Delete event ")
+             console.log(data)
+             return data;
+         }
+         else
+         {
+             console.log("Delete event - error")
+             console.log(response)
+            throw Error(handleResponses(response.status));
+         }
+     },
+     async updateEventByID(id, updatedEvent) {
+        console.log(id)
+        console.log(updatedEvent);
+        updatedEvent.gostos++
+        const response = await fetch(`${API_URL}/Ecopointer/events/event/${id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            ...authHeader()
+          },
+          body: JSON.stringify(updatedEvent)
+        });
+      
+        if (response.ok) {
+          let data = await response.json();
+          console.log("Update event");
+          console.log(data);
+          return data;
+        } else {
+          console.log("Update event - error");
+          console.log(response);
+          throw Error(handleResponses(response.status));
+        }
+      },
 
     async fetchAllEvents() {
         // console.log(" USER SERVICE - fetch ALL USERS started...")

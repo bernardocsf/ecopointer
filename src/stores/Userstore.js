@@ -47,9 +47,9 @@ export const userStore = defineStore('userStore', {
       return state.users.length;
     },
     getUserById: (state) => (id) => state.users.find((user) => user.id == id),
-    orderByXp(state) {
-      return state.users.users.sort((a, b) => b.xp - a.xp);
-    },
+   orderByXp(state) {
+       return state.users.users.sort((a, b) => b.xp - a.xp);
+     },
     
         getLoggedIn: (state) => state.loggedIn,
         getLoggedUser: (state) => state.loggedUser,
@@ -72,9 +72,10 @@ export const userStore = defineStore('userStore', {
       try {
         const loggedUser = await AuthService.login(user);
         this.loginSuccess(loggedUser);
+        console.log(loggedUser);
 
         // if successful login, navigate to pages corresponding to logged user role
-        if (this.loggedUser.role === "ADMIN") {
+        if (loggedUser.role == "admin") {
           router.push("/admin");
         } else {
           router.push("/home");
@@ -86,8 +87,8 @@ export const userStore = defineStore('userStore', {
     },
     logout() {
       AuthService.logout();
-      this.logoutAction();
-      router.push("/login");
+      
+      router.push("/");
     },
 
     async getAllUsers() {
@@ -101,6 +102,27 @@ export const userStore = defineStore('userStore', {
         throw error;
       }
     },
+    
+         async deleteUser(id) {
+             try {
+                
+                
+                 console.log(id)
+                 const deleteUser = await UserService.deleteUserByID(id);
+                console.log('STORE getOneUser: ')
+               console.log(deleteUser)
+                 // commit('SET_USERS', users);
+                 //return Promise.resolve(users);
+         }
+             catch(error)
+             {
+               // console.log('STORE listUsers: ' + error);
+                 this.setUsers( []);
+                this.setMessage(error);
+                throw error; // Needed to continue propagating the error
+               //return Promise.reject(error);
+            }
+       },
 
     updateLocalStorage() {
       localStorage.setItem('users', JSON.stringify(this.users));

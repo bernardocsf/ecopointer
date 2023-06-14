@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-const API_URL = "http://127.0.0.1:3000/"
 import { EventService } from '../services/events.service';
 
 export const eventos = defineStore('eventStore', {
@@ -19,27 +18,76 @@ export const eventos = defineStore('eventStore', {
       return state.eventos;
 
     },
-    // orderByGostos(state) {
-    //   return state.eventos.Evento.sort((a, b) => b.gostos - a.gostos);
-    // },
     getEventoByid: (state) => (id) => state.eventos.find(evento => evento.id == id),
-    
+     orderByGostos(state) {
+       return state.eventos.Evento.sort((a, b) => b.gostos - a.gostos);
+     },
   },
 
   actions: 
+  
+  {async getAllEvents() {
+    try {
+      const events = await EventService.fetchAllEvents();
+      this.setEvents(events);
+      this.updateLocalStorage()
+    } catch (error) {
+      this.setEvent([]);
+      this.setMessage(error);
+      throw error;
+    }
+  },
+  async add(evento) {
+    try {
+      console.log( evento)
+      const response = await EventService.addEvento(evento);
+      this.setMessage(response.message);
+    } catch (error) {
+      console.log('STORE REGISTER FAILS');
+      console.log(error);
+      throw error;
+    }
+  },
+  async deleteEvento(id) {
+    try {
+       
+       
+        console.log(id)
+        const deleteEvento = await EventService.deleteEventByID(id);
+       console.log('Delete evento ')
+      console.log(deleteEvento)
+        // commit('SET_USERS', users);
+        //return Promise.resolve(users);
+}
+    catch(error)
+    {
+      // console.log('STORE listUsers: ' + error);
+        this.setEvents( []);
+       this.setMessage(error);
+       throw error; // Needed to continue propagating the error
+      //return Promise.reject(error);
+   }
+},
+async updateEvento(id,evento) {
+  try {
+     
+     
+      console.log(id)
+      const updateEvento = await EventService.updateEventByID(id,evento);
+     console.log('Update evento ')
+    console.log(updateEvento)
+      // commit('SET_USERS', users);
+      //return Promise.resolve(users);
+}
+  catch(error)
   {
-    async getAllEvents() {
-      try {
-        const events = await EventService.fetchAllEvents();
-        this.setEvents(events);
-        this.updateLocalStorage()
-      } catch (error) {
-        this.setEvent([]);
-        this.setMessage(error);
-        throw error;
-      }
-    },
-   
+    // console.log('STORE listUsers: ' + error);
+      this.setEvents( []);
+     this.setMessage(error);
+     throw error; // Needed to continue propagating the error
+    //return Promise.reject(error);
+ }
+},
     updateLocalStorage() {
       localStorage.setItem('eventos', JSON.stringify(this.eventos));
     },

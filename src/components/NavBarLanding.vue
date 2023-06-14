@@ -1,5 +1,4 @@
 <template>
-
   <main class="background">
     <ul class="nav nav-pills mb-3 navbar fixed-top navbar-expand-lg" id="pills-tab" role="tablist">
       <li class="nav-item">
@@ -54,16 +53,11 @@
           </div>
         </div>
    
-        <p v-if="errors.length">
-          <b>Please correct the following error(s):</b>
-          <ul>
-            <li v-for="(error, index)  in errors" :key="index">{{ error }}</li>
-          </ul>
-        </p>
+        
                 <div class="text-container">
-                  <input v-model="user.username" type="text" class="form-control" placeholder="username">
+                  <input v-model="user1.username" type="text" class="form-control" placeholder="username">
                   <br>
-                  <input v-model="user.password" type="password" class="form-control" placeholder="password">
+                  <input v-model="user1.password" type="password" class="form-control" placeholder="password">
                   <br>
                   <p id="changeModal">Não tens conta? <a href="" data-bs-toggle="modal"
                       data-bs-target="#myModalRegisto">Regista-te</a> aqui</p>
@@ -102,19 +96,11 @@
         :class="successful ? 'alert-success' : 'alert-danger'"
       >
         {{ message }}
-       
-        
       </div>
       <div
-        v-if="errors.length>0"
-        class="alert"
-        :class="successful ? 'alert-success' : 'alert-danger'"
-      >
+        v-if="errors.length>0" class="alert" :class="successful ? 'alert-success' : 'alert-danger'">
         {{ errors }}
-       
-        
       </div>
-      
                       <input v-model="user.username" type="text" class="form-control" placeholder="username"><br>
                       <input v-model="user.email" type="text" id="emailR" class="form-control" placeholder="email"><br>
                       <input v-model="user.password" type="password" class="form-control" placeholder="password"><br>
@@ -122,8 +108,8 @@
                     <div class="p-2">
                       <input v-model="user.nome" type="text" class="form-control" placeholder="name"><br>
                       <input v-model="user.cidade" type="text" id="cidadeR" class="form-control" placeholder="cidade"><br>
-                      <input v-model="user.morada" type="password" class="form-control"
-                        placeholder="confpassword"><br>
+                      <input v-model="user.morada" type="text" class="form-control"
+                        placeholder="morada"><br>
                     </div>
                   </div>
                 </div>
@@ -137,7 +123,6 @@
       </div>
     </div>
   </main>
-
 </template>
 
 
@@ -150,6 +135,13 @@ class User {
     this.morada= morada;
     this.email = email;
     this.tipoUSer = tipoUSer;
+    this.password = password;
+  }
+}
+class User1 {
+  constructor(username, password,) {
+    this.username = username;
+    
     this.password = password;
   }
 }
@@ -168,6 +160,7 @@ export default {
   data() {
     return {
       user: new User("", "","","","user","",""),
+      user1: new User1("", ""),
       loading: false,
       message: "",
       errors: [],
@@ -181,17 +174,18 @@ export default {
   
   this.$data.loading = true;
   this.$data.errors = [];
-  if (this.user.username && this.user.password) {
-    console.log(this.user);
+  console.log(this.user1);
+  if (this.user1.username && this.user1.password) {
+    console.log(this.user1);
     // makes request by dispatching an action
     try {
-      await store.login(this.user);
-      console.log(this.user);
+      await store.login(this.user1);
+      console.log(this.user1);
 
-      console.log("LOGIN: AFTER AWAIT: " + this.getLoggedIn);
+      console.log("LOGIN: AFTER AWAIT: " + store.loggedUser.length);
 
       // if successful login, navigate to pages corresponding to logged user role
-      if (store.getLoggedUser.role == "ADMIN")
+      if (store.loggedUser.role == "admin")
         router.push("/admin");
       else 
         router.push("/home");
@@ -266,9 +260,7 @@ async handleRegister() {
   },
   
  
-  beforeUpdate() {
-    this.store.updateLocalStorage();
-  },
+  
 };
 </script>
 
