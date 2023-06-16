@@ -309,7 +309,8 @@ export default {
   },
   },
   
-  mounted() {
+  created
+  () {
     this.getUsersList();
     this.getChallengesList();
     this.getEventsList();

@@ -52,7 +52,7 @@ mutations: {
       catch(error)
       {
         // console.log('STORE listUsers: ' + error);
-          this.setEvents( []);
+          this.setChallenges( []);
          this.setMessage(error);
          throw error; // Needed to continue propagating the error
         //return Promise.reject(error);
